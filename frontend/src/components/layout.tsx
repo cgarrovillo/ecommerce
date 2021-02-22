@@ -8,7 +8,7 @@ import stripeLogo from '../images/powered_by_stripe.svg'
 
 import '@stripe/stripe-js' // https://github.com/stripe/stripe-js#import-as-a-side-effect
 
-const Layout = ({ children }) => (
+const Layout = ({ children }: any) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {

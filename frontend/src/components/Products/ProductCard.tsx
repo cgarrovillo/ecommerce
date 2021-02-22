@@ -30,14 +30,14 @@ const buttonDisabledStyles = {
   cursor: 'not-allowed',
 }
 
-const formatPrice = (amount, currency) => {
+const formatPrice = (amount:number, currency:string) => {
   let price = (amount / 100).toFixed(2)
   let numberFormat = new Intl.NumberFormat(['en-US'], {
     style: 'currency',
     currency: currency,
     currencyDisplay: 'symbol',
   })
-  return numberFormat.format(price)
+  return numberFormat.format(parseInt(price))
 }
 
 const ProductCard = ({ product }) => {
@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
     event.preventDefault()
     setLoading(true)
 
-    const price = new FormData(event.target).get('priceSelect')
+    const price = new FormData(event.target).get('priceSelect').toString()
     const stripe = await getStripe()
     const { error } = await stripe.redirectToCheckout({
       mode: 'payment',
@@ -63,7 +63,7 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <div style={cardStyles}>
+    <div>
       <form onSubmit={handleSubmit}>
         <fieldset style={{ border: 'none' }}>
           <legend>
@@ -82,11 +82,6 @@ const ProductCard = ({ product }) => {
         </fieldset>
         <button
           disabled={loading}
-          style={
-            loading
-              ? { ...buttonStyles, ...buttonDisabledStyles }
-              : buttonStyles
-          }
         >
           BUY ME
         </button>

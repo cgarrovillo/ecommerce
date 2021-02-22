@@ -41,9 +41,6 @@ const Checkout = () => {
   return (
     <button
       disabled={loading}
-      style={
-        loading ? { ...buttonStyles, ...buttonDisabledStyles } : buttonStyles
-      }
       onClick={redirectToCheckout}
     >
       BUY MY BOOK
