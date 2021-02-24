@@ -1,28 +1,7 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby E-Commerce Starter
-</h1>
+# thoughtofyou
 
-This is a Gatsby e-commerce example based on https://www.gatsbyjs.org/tutorial/ecommerce-tutorial/
+E-commerce website
 
-## Setup
+Header photo:
 
-- First, you must enable client-only Checkout in your Stripe Dashboard: https://dashboard.stripe.com/account/checkout/settings
-- Next, create a product and price from the Stripe Dashboard: https://dashboard.stripe.com/test/products
-
-### Run locally
-
-- `git clone https://github.com/thorsten-stripe/ecommerce-gatsby-tutorial.git`
-- Make a copy of the example .env file: `cp .env.example .env.development`
-- Add your Stripe API keys to the newly created `.env.development` file.
-- run `npm install`
-- run `gatsby develop`
-
-### 💫 Deploy with Netlify
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/thorsten-stripe/ecommerce-gatsby-tutorial)
+<span>Photo by <a href="https://unsplash.com/@slidebean?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Slidebean</a> on <a href="https://unsplash.com/s/photos/startup?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>

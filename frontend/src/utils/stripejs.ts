@@ -3,11 +3,12 @@
  */
 import { loadStripe, Stripe } from '@stripe/stripe-js'
 
-let stripePromise:Promise<Stripe>
+let stripePromise: Promise<Stripe | null>
 
 const getStripe = () => {
   if (!stripePromise) {
-    stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY)
+    const key = process.env.GATSBY_STRIPE_PUBLISHABLE_KEY || ''
+    stripePromise = loadStripe(key)
   }
   return stripePromise
 }
