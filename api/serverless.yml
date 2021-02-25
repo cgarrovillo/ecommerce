@@ -1,0 +1,17 @@
+service: thoughtofyoucoapi
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-west-2
+
+plugins:
+  - serverless-offline
+
+functions:
+  app:
+    handler: build/index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'

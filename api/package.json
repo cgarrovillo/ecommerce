@@ -1,0 +1,22 @@
+{
+  "name": "thoughtofyoucoapi",
+  "version": "0.0.1",
+  "description": "API for the thoughtofyou.co store.",
+  "main": "build/index.js",
+  "author": "Christian Garrovillo <me@christiang.dev>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "predeploy": "tsc",
+    "start": "tsc --watch | sls offline start"
+  },
+  "dependencies": {
+    "koa": "^2.13.1",
+    "serverless-http": "^2.7.0",
+    "typescript": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.0",
+    "serverless-offline": "^6.8.0"
+  }
+}
