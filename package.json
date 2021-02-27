@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "add": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "preinstall": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "lint": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "build": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "serve": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "shell": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "start": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "deploy": ">&2 echo You're in the wrong directory to be invoking this command.  ",
+    "logs": ">&2 echo You're in the wrong directory to be invoking this command.  "
+  }
+}
