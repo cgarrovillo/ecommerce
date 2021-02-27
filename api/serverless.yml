@@ -7,6 +7,9 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: us-west-2
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    shouldStartNameWithService: true
 
 plugins:
   - serverless-offline
@@ -16,4 +19,4 @@ functions:
     handler: build/index.handler
     events:
       - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http: 'ANY /{proxy+}'

@@ -1,12 +1,17 @@
 import serverless from 'serverless-http'
 import Koa from 'koa'
+import Router from '@koa/router'
+
+import createCheckoutSession from './controllers/createCheckoutSession'
 
 const app = new Koa()
+const router = new Router()
 
-app.use(async ctx => {
-  ctx.body = 'Hello World'
-})
+router.post('/checkout', createCheckoutSession)
 
-console.log(app.env)
+app.use(router.routes())
+if (process.env.IS_OFFLINE === 'true') {
+  app.use(router.allowedMethods())
+}
 
 module.exports.handler = serverless(app)
