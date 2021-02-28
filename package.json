@@ -1,4 +1,6 @@
 {
+  "license": "UNLICENSED",
+  "private": true,
   "scripts": {
     "add": ">&2 echo You're in the wrong directory to be invoking this command.  ",
     "preinstall": ">&2 echo You're in the wrong directory to be invoking this command.  ",
