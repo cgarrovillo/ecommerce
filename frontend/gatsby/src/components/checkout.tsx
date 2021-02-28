@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import getStripe from '../utils/stripejs'
 
 const buttonStyles = {
@@ -20,11 +21,16 @@ const buttonDisabledStyles = {
 const Checkout = () => {
   const [loading, setLoading] = useState(false)
 
-  const redirectToCheckout = async event => {
+  const redirectToCheckout = async (event: React.MouseEvent) => {
     event.preventDefault()
     setLoading(true)
 
     const stripe = await getStripe()
+    const response = await axios({
+      method: 'POST',
+      url: '',
+    })
+
     const { error } = await stripe.redirectToCheckout({
       mode: 'payment',
       lineItems: [{ price: process.env.GATSBY_BUTTON_PRICE_ID, quantity: 1 }],
@@ -39,10 +45,7 @@ const Checkout = () => {
   }
 
   return (
-    <button
-      disabled={loading}
-      onClick={redirectToCheckout}
-    >
+    <button disabled={loading} onClick={redirectToCheckout}>
       BUY MY BOOK
     </button>
   )
