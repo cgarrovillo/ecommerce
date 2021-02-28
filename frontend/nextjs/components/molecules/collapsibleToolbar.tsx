@@ -8,7 +8,7 @@ import {
   ListItem,
   List,
 } from '@material-ui/core'
-import { Link } from 'gatsby-theme-material-ui'
+import Link from 'next/link'
 
 import { HeaderButton } from '../atoms/button.header'
 import { Logo } from '../atoms/logo'
@@ -16,12 +16,11 @@ import { Logo } from '../atoms/logo'
 const CollapsibleToolbar = ({ children }: any) => {
   console.log('render')
   const styles = useStyles()
-  const iOS = useMemo(
-    () =>
-      typeof window !== 'undefined' &&
-      /iPad|iPhone|iPod/.test(navigator.userAgent),
-    [window]
-  )
+  const iOS = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent)
+    }
+  }, [])
   const [state, setState] = React.useState({
     left: false,
     right: false,
@@ -46,14 +45,11 @@ const CollapsibleToolbar = ({ children }: any) => {
   return (
     <Toolbar className={styles.toolbar}>
       {/* Mobile Only */}
-      <Button
-        onClick={toggleDrawer('left', true)}
-        className={styles.mobileToggle}
-      >
+      <Button onClick={toggleDrawer('left', true)} className={styles.mobileToggle}>
         Shop
       </Button>
       <SwipeableDrawer
-        anchor="left"
+        anchor='left'
         open={state['left']}
         onClose={toggleDrawer('left', false)}
         onOpen={toggleDrawer('left', true)}
@@ -62,10 +58,10 @@ const CollapsibleToolbar = ({ children }: any) => {
       >
         <List className={styles.drawerList}>
           <ListItem>
-            <Link>Shop</Link>
+            <HeaderButton label='Shop All' href='/catalog' />
           </ListItem>
           <ListItem>
-            <Link>Collections</Link>
+            <HeaderButton label='Collections' href='/collections' />
           </ListItem>
         </List>
       </SwipeableDrawer>
@@ -73,8 +69,8 @@ const CollapsibleToolbar = ({ children }: any) => {
 
       {/* ============= DESKTOP ============= */}
       <div>
-        <HeaderButton label="Shop All" href="/catalog" />
-        <HeaderButton label="Collections" href="/collections" />
+        <HeaderButton label='Shop All' href='/catalog' />
+        <HeaderButton label='Collections' href='/collections' />
       </div>
 
       <Box className={styles.logoContainer}>
@@ -82,31 +78,27 @@ const CollapsibleToolbar = ({ children }: any) => {
       </Box>
 
       <div>
-        <HeaderButton label="Cart" href="/collections" />
-        <HeaderButton label="Account" href="/collections" />
+        <HeaderButton label='Cart' href='/collections' />
+        <HeaderButton label='Account' href='/collections' />
       </div>
 
       {/* ============= END DESKTOP ============= */}
 
       {/* Mobile Only */}
-      <Button
-        onClick={toggleDrawer('right', true)}
-        className={styles.mobileToggle}
-      >
+      <Button onClick={toggleDrawer('right', true)} className={styles.mobileToggle}>
         Cart
       </Button>
       <SwipeableDrawer
-        anchor="right"
+        anchor='right'
         open={state['right']}
         onClose={toggleDrawer('right', false)}
-        onOpen={toggleDrawer('right', true)}
-      >
+        onOpen={toggleDrawer('right', true)}>
         <List className={styles.drawerList}>
           <ListItem>
-            <Link>Cart</Link>
+            <HeaderButton label='Cart' href='/collections' />
           </ListItem>
           <ListItem>
-            <Link>Account</Link>
+            <HeaderButton label='Account' href='/collections' />
           </ListItem>
         </List>
       </SwipeableDrawer>
@@ -115,7 +107,7 @@ const CollapsibleToolbar = ({ children }: any) => {
   )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar,
   toolbar: {
     justifyContent: 'space-between',

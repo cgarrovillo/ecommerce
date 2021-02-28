@@ -1,5 +1,4 @@
-import { makeStyles, Box } from '@material-ui/core'
-import { Button } from 'gatsby-theme-material-ui'
+import { makeStyles, Box, Button } from '@material-ui/core'
 import React from 'react'
 
 interface Props {
@@ -18,7 +17,7 @@ export const HeaderButton: React.FC<Props> = ({ label, href }) => {
   )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   container: {
     [theme.breakpoints.down('xs')]: {
       display: 'none',
@@ -28,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
   link: {
     display: 'block',
     textTransform: 'none',
-    fontWeight: 400,
     '&:hover': {
       textDecoration: 'none',
     },

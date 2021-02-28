@@ -4,8 +4,6 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { lightTheme } from '../config/theme'
 
-import '../styles.css'
-
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     // As soon as the app is ready, allow client to take over styling.

@@ -5,12 +5,12 @@ type Props = {
   children: any
 }
 
-const Banner: React.FC<Props> = ({ children }) => {
+const Banner: React.FC<Props> = ({ children, ...props }) => {
   const styles = useStyles()
 
   return (
-    <div>
-      <Grid container>
+    <div className={styles.background}>
+      <Grid container {...props}>
         <Grid item xs={12} sm={6}>
           <Container className={styles.contentContainer}>{children}</Container>
         </Grid>
@@ -21,7 +21,12 @@ const Banner: React.FC<Props> = ({ children }) => {
 
 const useStyles = makeStyles(theme => ({
   background: {
-    backgroundImage: 'url(/use-shopping-cart.png)',
+    backgroundImage: 'url(/banner.jpg)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    opacity: '0.99',
+    position: 'relative',
   },
   contentContainer: {
     color: theme.palette.secondary.main,
