@@ -1,5 +1,4 @@
 import { Context } from 'koa'
-import Stripe from 'stripe'
 
 import { stripe } from '../../util/stripe'
 import { STORE_DOMAIN } from '../../util/constants'
