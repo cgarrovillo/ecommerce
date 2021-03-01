@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Megona';
+  src: url('/fonts/Megona.ttf');
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/GT-Walsheim-Pro-Light.ttf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/GT-Walsheim-Pro-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/GT-Walsheim-Pro-Medium.otf') format('opentype');
+  font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/GT-Walsheim-Pro-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}

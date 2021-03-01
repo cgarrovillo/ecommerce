@@ -1,23 +1,26 @@
 import { NextPage } from 'next'
 import React from 'react'
+import useSWR from 'swr'
 
-import Layout from '../components/Layout'
-import Banner from '../components/atoms/banner'
-import Collection from '../components/templates/collection'
+import Layout from '../../components/Layout'
+import Banner from '../../components/atoms/banner'
+import Collection from '../../components/templates/collection'
 
 import { Typography, makeStyles } from '@material-ui/core'
 
-const IndexPage: NextPage = () => {
+const Catalog: NextPage = () => {
+  const { data, error } = useSWR('/api/products')
   const styles = useStyles()
 
   return (
     <Layout>
       <Banner>
         <Typography variant='h2' className={styles.bannerText}>
-          a brand for the greater good
+          brand catalog
         </Typography>
       </Banner>
-      <Collection collection='comfort2021' title='the comfort collection' />
+      {console.log(data)}
+      {/* <Collection title='the comfort collection' /> */}
     </Layout>
   )
 }
@@ -31,4 +34,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default IndexPage
+export default Catalog

@@ -14,7 +14,6 @@ import { HeaderButton } from '../atoms/button.header'
 import { Logo } from '../atoms/logo'
 
 const CollapsibleToolbar = ({ children }: any) => {
-  console.log('render')
   const styles = useStyles()
   const iOS = useMemo(() => {
     if (typeof window !== 'undefined') {

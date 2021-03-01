@@ -6,13 +6,10 @@ import { formatAmountForStripe } from '../../../utils/stripe-helpers'
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   // https://github.com/stripe/stripe-node#configuration
-  apiVersion: '2020-03-02',
+  apiVersion: '2020-08-27',
 })
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const amount: number = req.body.amount
     try {
@@ -35,9 +32,7 @@ export default async function handler(
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/donate-with-checkout`,
       }
-      const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create(
-        params
-      )
+      const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params)
 
       res.status(200).json(checkoutSession)
     } catch (err) {
