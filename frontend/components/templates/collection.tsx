@@ -23,7 +23,6 @@ type APIResponse = {
 const Collection: React.FC<Props> = ({ collection, title }) => {
   const { data, error }: APIResponse = useSWR(`/api/collections/${collection}`)
   const styles = useStyles()
-
   return (
     <Grid container className={styles.container}>
       <Grid item xs={12}>

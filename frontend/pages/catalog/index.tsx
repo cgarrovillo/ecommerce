@@ -19,7 +19,6 @@ const Catalog: NextPage = () => {
           brand catalog
         </Typography>
       </Banner>
-      {console.log(data)}
       {/* <Collection title='the comfort collection' /> */}
     </Layout>
   )
