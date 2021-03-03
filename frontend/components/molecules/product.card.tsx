@@ -20,7 +20,7 @@ const ProductCard: React.FC<Props> = ({ price }) => {
 
   const styles = useStyles()
   return (
-    <div>
+    <div className={styles.card}>
       <div className={styles.imgContainer}>
         <Image
           src={img}
@@ -41,10 +41,17 @@ const ProductCard: React.FC<Props> = ({ price }) => {
   )
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+  card: {
+    cursor: 'pointer',
+    display: 'inline-block',
+    width: 320,
+    [theme.breakpoints.down('sm')]: {
+      width: 283,
+    },
+  },
   imgContainer: {
-    width: 383,
-    height: 601,
+    width: '100%',
   },
   productInfoContainer: {
     paddingTop: '1em',
@@ -53,6 +60,6 @@ const useStyles = makeStyles({
   productInfoName: {
     lineHeight: '50%',
   },
-})
+}))
 
 export default React.memo(ProductCard)

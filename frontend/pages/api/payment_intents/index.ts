@@ -4,7 +4,7 @@ import { CURRENCY, MIN_AMOUNT, MAX_AMOUNT } from '../../../config'
 import { formatAmountForStripe } from '../../../utils/stripe-helpers'
 
 import Stripe from 'stripe'
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_RESTRICTED_KEY!, {
   // https://github.com/stripe/stripe-node#configuration
   apiVersion: '2020-08-27',
 })

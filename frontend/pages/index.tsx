@@ -18,6 +18,12 @@ const IndexPage: NextPage = () => {
         </Typography>
       </Banner>
       <Collection collection='comfort2021' title='the comfort collection' />
+
+      <Banner>
+        <Typography variant='h2' className={styles.bannerText}>
+          a brand for the greater good
+        </Typography>
+      </Banner>
     </Layout>
   )
 }

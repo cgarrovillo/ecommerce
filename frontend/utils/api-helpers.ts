@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 /**
  * Helper function to GET data from a NextJS API Route
  * @param url
@@ -36,4 +38,8 @@ export async function fetchPostJSON(url: string, data?: {}) {
   } catch (err) {
     throw new Error(err.message)
   }
+}
+
+export async function axiosGet(url: string) {
+  return axios.get(url).then(res => res.data)
 }
