@@ -1,6 +1,6 @@
 import { Context, Next } from 'koa'
 
-import { stripe } from '../util/Stripe'
+import { stripe } from '../util/stripe'
 
 /**
  * Verifies that the incoming request is coming from Stripe Webhooks
