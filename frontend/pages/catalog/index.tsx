@@ -4,7 +4,7 @@ import useSWR from 'swr'
 
 import Layout from '../../components/Layout'
 import Banner from '../../components/atoms/banner'
-import Collection from '../../components/templates/collection'
+import Collection from '../../components/templates/collection.gallery'
 
 import { Typography, makeStyles } from '@material-ui/core'
 

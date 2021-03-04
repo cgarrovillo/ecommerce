@@ -1,6 +1,7 @@
 import React from 'react'
 import type Stripe from 'stripe'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Typography, makeStyles } from '@material-ui/core'
 
 import { formatAmountForDisplay } from '../../utils/stripe-helpers'
@@ -20,24 +21,28 @@ const ProductCard: React.FC<Props> = ({ price }) => {
 
   const styles = useStyles()
   return (
-    <div className={styles.card}>
-      <div className={styles.imgContainer}>
-        <Image
-          src={img}
-          alt={`Picture of ${name}`}
-          width={383}
-          height={601}
-          layout='responsive'
-          quality={100}
-        />
-        <div className={styles.productInfoContainer}>
-          <Typography variant='h6' className={styles.productInfoName}>
-            {name}{' '}
-          </Typography>
-          <Typography variant='h6'>{formatAmountForDisplay(price.unit_amount!, 'CAD')}</Typography>
+    <Link href={`/catalog/product/${product.id}`}>
+      <div className={styles.card}>
+        <div className={styles.imgContainer}>
+          <Image
+            src={img}
+            alt={`Picture of ${name}`}
+            width={383}
+            height={601}
+            layout='responsive'
+            quality={100}
+          />
+          <div className={styles.productInfoContainer}>
+            <Typography variant='h6' className={styles.productInfoName}>
+              {name}{' '}
+            </Typography>
+            <Typography variant='h6'>
+              {formatAmountForDisplay(price.unit_amount!, 'CAD')}
+            </Typography>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

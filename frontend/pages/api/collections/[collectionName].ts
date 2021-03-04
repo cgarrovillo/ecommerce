@@ -27,6 +27,8 @@ const getCollection = async (req: NextApiRequest, res: NextApiResponse) => {
         const product = <Stripe.Product>priceData?.product
         return product?.metadata?.collection === collectionName
       })
+
+      // Return Stripe.Prices[]
       res.json(collection)
     })
     .catch(err => {

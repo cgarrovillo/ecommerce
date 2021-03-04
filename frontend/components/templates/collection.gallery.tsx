@@ -1,23 +1,17 @@
 import React from 'react'
-import useSWR from 'swr'
-import Stripe from 'stripe'
 import { Grid, makeStyles, Typography } from '@material-ui/core'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Mousewheel } from 'swiper'
 import 'swiper/swiper-bundle.css'
 
-SwiperCore.use([Mousewheel])
-
+import useCollection from '../../hooks/useCollection'
 import ProductCard from '../molecules/product.card'
+
+SwiperCore.use([Mousewheel])
 
 type Props = {
   collection: string
   title: string
-}
-
-type APIResponse = {
-  data?: Stripe.Price[] | undefined
-  error?: any
 }
 
 /**
@@ -26,7 +20,7 @@ type APIResponse = {
  * @param title The display title for this collection
  */
 const Collection: React.FC<Props> = ({ collection, title }) => {
-  const { data, error }: APIResponse = useSWR(`/api/collections/${collection}`)
+  const { collectionData, isLoading, isError } = useCollection(collection)
   const styles = useStyles()
 
   return (
@@ -49,7 +43,7 @@ const Collection: React.FC<Props> = ({ collection, title }) => {
           mousewheel={{
             forceToAxis: true,
           }}>
-          {data?.map(data => (
+          {collectionData?.map(data => (
             <SwiperSlide key={data.id} className={styles.swiperSlide}>
               <ProductCard price={data} />
             </SwiperSlide>
