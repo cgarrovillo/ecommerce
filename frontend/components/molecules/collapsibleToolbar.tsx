@@ -10,8 +10,8 @@ import {
 } from '@material-ui/core'
 import Link from 'next/link'
 
-import { HeaderButton } from '../atoms/button.header'
-import { Logo } from '../atoms/logo'
+import HeaderButton from '../atoms/header.button'
+import Logo from '../atoms/logo'
 
 const CollapsibleToolbar = ({ children }: any) => {
   const styles = useStyles()

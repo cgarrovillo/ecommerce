@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, makeStyles, Typography } from '@material-ui/core'
+import { Grid, makeStyles, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Mousewheel } from 'swiper'
 import 'swiper/swiper-bundle.css'
@@ -21,7 +21,15 @@ type Props = {
  */
 const Collection: React.FC<Props> = ({ collection, title }) => {
   const { collectionData, isLoading, isError } = useCollection(collection)
+
+  const theme = useTheme()
   const styles = useStyles()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const mouseWheel = isMobile
+    ? false
+    : {
+        forceToAxis: true,
+      }
 
   return (
     <Grid container className={styles.container}>
@@ -31,7 +39,7 @@ const Collection: React.FC<Props> = ({ collection, title }) => {
         </Typography>
       </Grid>
 
-      <div>
+      <div className={styles.swiperContainer}>
         {/* Settings to stop annoying behaviour. */}
         <Swiper
           className={styles.swiper}
@@ -40,9 +48,7 @@ const Collection: React.FC<Props> = ({ collection, title }) => {
           preloadImages={false}
           updateOnImagesReady={false}
           updateOnWindowResize={false}
-          mousewheel={{
-            forceToAxis: true,
-          }}>
+          mousewheel={mouseWheel}>
           {collectionData?.map(data => (
             <SwiperSlide key={data.id} className={styles.swiperSlide}>
               <ProductCard price={data} />
@@ -61,6 +67,13 @@ const useStyles = makeStyles(theme => ({
   title: {
     textAlign: 'center',
     padding: '2em',
+  },
+  swiperContainer: {
+    paddingLeft: '4em',
+    paddingRight: '4em',
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
+    },
   },
   swiper: {
     padding: '1em',

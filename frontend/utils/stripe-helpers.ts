@@ -3,7 +3,11 @@
  * @param unit_amount
  * @param currency
  */
-export function formatAmountForDisplay(unit_amount: number, currency: string): string {
+export function formatAmountForDisplay(unit_amount: number, currency: string = 'CAD'): string {
+  if (!unit_amount) {
+    return ''
+  }
+
   let numberFormat = new Intl.NumberFormat(['en-US'], {
     style: 'currency',
     currency: currency,

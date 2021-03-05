@@ -14,7 +14,6 @@ const getPrices = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { product_id },
   } = req
-
   if (product_id === 'undefined') {
     return res.status(400).send('Invalid product_id.')
   }

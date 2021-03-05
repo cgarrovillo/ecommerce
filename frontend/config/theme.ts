@@ -31,6 +31,9 @@ const options = (dark: boolean): ThemeOptions => {
       type: dark ? 'dark' : 'light',
       primary: paletteColors.primary,
       secondary: paletteColors.secondary,
+      background: {
+        default: '#FFFFFF',
+      },
     },
     typography: {
       fontFamily: [

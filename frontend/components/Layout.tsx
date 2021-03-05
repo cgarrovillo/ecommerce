@@ -25,6 +25,7 @@ const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
     </Head>
     <Header />
     <>{children}</>
+    <div id='loading__bar'></div>
   </>
 )
 

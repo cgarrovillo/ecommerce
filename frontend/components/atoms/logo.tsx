@@ -2,7 +2,7 @@ import { Typography, makeStyles } from '@material-ui/core'
 import Link from 'next/link'
 import React from 'react'
 
-export const Logo: React.FC<any> = ({ ...props }) => {
+const Logo: React.FC<any> = ({ ...props }) => {
   const styles = useStyles()
   return (
     <div {...props}>
@@ -28,3 +28,5 @@ const useStyles = makeStyles(theme => ({
     MozOsxFontSmoothing: 'grayscale',
   },
 }))
+
+export default Logo

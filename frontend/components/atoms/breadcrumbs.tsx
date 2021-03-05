@@ -44,7 +44,7 @@ const Breadcrumbs: React.FC<Props> = ({ name }) => {
           return (
             <li key={breadcrumb.path} className={styles.li}>
               <Link href={breadcrumb.path}>
-                <Typography variant='h6' component='span' className={styles.label}>
+                <Typography variant='h5' component='span' className={styles.label}>
                   {breadcrumb.label}
                 </Typography>
               </Link>
