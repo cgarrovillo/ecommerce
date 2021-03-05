@@ -40,6 +40,11 @@ export async function fetchPostJSON(url: string, data?: {}) {
   }
 }
 
+/**
+ * Simple wrapper for Axios Get Requests
+ * @param url
+ * @returns
+ */
 export async function axiosGet(url: string) {
   return axios.get(url).then(res => res.data)
 }

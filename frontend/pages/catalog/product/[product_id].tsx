@@ -11,7 +11,6 @@ import Breadcrumbs from '../../../components/atoms/breadcrumbs'
 import BuyButton from '../../../components/atoms/buy.button'
 
 import { Typography, makeStyles, Grid, Container } from '@material-ui/core'
-import usePrice from '../../../hooks/usePrice'
 import { formatAmountForDisplay } from '../../../utils/stripe-helpers'
 import { axiosGet } from '../../../utils/api-helpers'
 
@@ -31,7 +30,6 @@ export const getStaticProps: GetStaticProps = async context => {
 // Since this is a dynamic route. This is necessary for getStaticProps to actually pre-render the page.
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 export const getStaticPaths: GetStaticPaths = async () => {
-  // TODO: might have to move API routes away, as calls to 127.0.0.1 isnt allowed.
   const allProducts: Stripe.Product[] = await axiosGet('http://localhost:3000/api/products')
   const paths = allProducts.map(prod => ({
     params: { product_id: prod.id },
@@ -42,13 +40,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 /**
- * Displays a Product Page when the query contains a valid Product.id
+ * SSG Rendered Product page using a fetched Price object from Stripe.
  * Takes advantage of Pre-rendering & live updates. See [Pre-rendering.](https://swr.vercel.app/docs/with-nextjs#pre-rendering)
  * @returns
  */
 const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
-  const { product_id } = router.query
 
   const unitAmount = formatAmountForDisplay(price?.unit_amount!)
   const product = price?.product as Stripe.Product
