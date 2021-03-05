@@ -34,7 +34,7 @@ const ProductCard: React.FC<Props> = ({ price }) => {
           />
           <div className={styles.productInfoContainer}>
             <Typography variant='h6' className={styles.productInfoName}>
-              {name}{' '}
+              {name}
             </Typography>
             <Typography variant='h6'>
               {formatAmountForDisplay(price.unit_amount!, 'CAD')}

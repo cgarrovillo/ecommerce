@@ -24,7 +24,7 @@ const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
       />
     </Head>
     <Header />
-    <div>{children}</div>
+    <>{children}</>
   </>
 )
 

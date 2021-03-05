@@ -25,6 +25,7 @@ const getPrices = async (req: NextApiRequest, res: NextApiResponse) => {
     .list({
       active: true,
       product: prod,
+      expand: ['data.product'],
     })
     .then(value => {
       // If there's only one price object, return it by itself. Otherwise, return the whole array.

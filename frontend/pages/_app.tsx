@@ -4,6 +4,9 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { lightTheme } from '../config/theme'
 
+// SwiperJS
+import 'swiper/swiper-bundle.min.css'
+
 import '../public/typography.css'
 
 function MyApp({ Component, pageProps }: AppProps) {

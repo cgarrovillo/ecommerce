@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     fontFamily: 'Megona',
     fontSize: '1.3rem',
+    color: 'initial',
     '&:visited': {
       color: 'initial',
     },
