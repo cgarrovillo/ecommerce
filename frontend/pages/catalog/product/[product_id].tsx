@@ -21,15 +21,18 @@ SwiperCore.use([Pagination])
 // See [Pre-rendering.](https://swr.vercel.app/docs/with-nextjs#pre-rendering)
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export const getStaticProps: GetStaticProps = async context => {
-  const prod: Stripe.Price = await axiosGet(`/api/prices/${context?.params?.product_id}`)
+  const price: Stripe.Price = await axiosGet(
+    `http://localhost:3000/api/prices/${context?.params?.product_id}`
+  )
 
-  return { props: { prod } }
+  return { props: { price } }
 }
 
 // Since this is a dynamic route. This is necessary for getStaticProps to actually pre-render the page.
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allProducts: Stripe.Product[] = await axiosGet('/api/products')
+  // TODO: might have to move API routes away, as calls to 127.0.0.1 isnt allowed.
+  const allProducts: Stripe.Product[] = await axiosGet('http://localhost:3000/api/products')
   const paths = allProducts.map(prod => ({
     params: { product_id: prod.id },
   }))
@@ -46,10 +49,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
   const { product_id } = router.query
-  // const { price, isError } = usePrice(product_id!, prod)
 
   const unitAmount = formatAmountForDisplay(price?.unit_amount!)
   const product = price?.product as Stripe.Product
+
   const images = [
     product?.images[0],
     product?.images[0],
