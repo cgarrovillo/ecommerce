@@ -1,7 +1,7 @@
 /**
  * / _document.tsx
  * Only rendered in the server. Event handlers like onClick do not work.
- * Prevents flickering when client receives the page.
+ * Used in MaterialUI theming to prevent flickering when client sees the page.
  */
 import React from 'react'
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'

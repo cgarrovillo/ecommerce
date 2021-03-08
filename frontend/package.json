@@ -19,7 +19,6 @@
     "micro-cors": "^0.1.1",
     "next": "^10.0.7",
     "nextjs-breadcrumbs": "^0.9.9",
-    "nprogress": "^0.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "stripe": "^8.137.0",

@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
+import { CartProvider } from 'use-shopping-cart'
+import getStripe from '../utils/get-stripejs'
 
 import Header from './organisms/header'
 
@@ -7,6 +9,8 @@ type Props = {
   children: ReactNode
   title?: string
 }
+
+const stripePromise = getStripe()
 
 const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
   <>
@@ -23,9 +27,12 @@ const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
         content='https://nextjs-typescript-react-stripe-js.now.sh/social_card.png'
       />
     </Head>
-    <Header />
-    <>{children}</>
-    <div id='loading__bar'></div>
+    <CartProvider mode='checkout-session' stripe={stripePromise} currency='CAD'>
+      <>
+        <Header />
+        <>{children}</>
+      </>
+    </CartProvider>
   </>
 )
 

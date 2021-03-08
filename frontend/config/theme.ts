@@ -21,7 +21,9 @@ export const paletteColorsLight = {
   },
   error: '#E44C65',
   background: '#f9f9f9',
-  text: '#1b1b1b',
+  text: {
+    primary: '#000000',
+  },
 }
 
 const options = (dark: boolean): ThemeOptions => {
@@ -33,6 +35,9 @@ const options = (dark: boolean): ThemeOptions => {
       secondary: paletteColors.secondary,
       background: {
         default: '#FFFFFF',
+      },
+      text: {
+        primary: '#000000',
       },
     },
     typography: {

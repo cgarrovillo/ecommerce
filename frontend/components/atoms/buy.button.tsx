@@ -1,18 +1,21 @@
 import { makeStyles, Box, Button } from '@material-ui/core'
 import React from 'react'
+import { useShoppingCart } from 'use-shopping-cart'
 
 interface Props {
   label: string
-  href?: string
+  price: any
 }
 
-const BuyButton: React.FC<Props> = ({ label, href }) => {
+const BuyButton: React.FC<Props> = ({ label, price }) => {
   const styles = useStyles()
+  const { addItem } = useShoppingCart()
+
+  // TODO: onClick, Form price object using the passed in price object, then add item to cart
+
   return (
     <Box className={styles.container}>
-      <Button href={href} className={styles.link}>
-        {label}
-      </Button>
+      <Button className={styles.link}>{label}</Button>
     </Box>
   )
 }

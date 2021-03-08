@@ -47,16 +47,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
 
-  const unitAmount = formatAmountForDisplay(price?.unit_amount!)
   const product = price?.product as Stripe.Product
-
   const images = [
+    // FOR TESTING ONLY
     product?.images[0],
     product?.images[0],
     product?.images[0],
     product?.images[0],
     product?.images[0],
   ]
+
+  const unitAmount = formatAmountForDisplay(price?.unit_amount!)
 
   const theme = useTheme()
   const styles = useStyles()
@@ -119,7 +120,7 @@ const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
               </Grid>
 
               <Grid item xs={12}>
-                <BuyButton label='Add to Bag' />
+                <BuyButton label='Add to Bag' price={price} />
               </Grid>
             </Grid>
           </Grid>
@@ -144,7 +145,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   breadcrumbContainer: {
-    margin: '4.5em 0 1.5em 0',
+    margin: '4.5em 0 3em 0',
 
     [theme.breakpoints.down('sm')]: {
       padding: '0 2em',
