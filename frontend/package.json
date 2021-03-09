@@ -21,6 +21,7 @@
     "nextjs-breadcrumbs": "^0.9.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
     "stripe": "^8.137.0",
     "swiper": "^6.4.15",
     "swr": "^0.4.2",

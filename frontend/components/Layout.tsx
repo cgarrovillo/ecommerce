@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { CartProvider, DebugCart } from 'use-shopping-cart'
 import getStripe from '../utils/get-stripejs'
 
-import Header from './organisms/header'
+import NavBar from './organisms/navbar'
 
 type Props = {
   children: ReactNode
@@ -30,7 +30,7 @@ const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
     <CartProvider mode='checkout-session' stripe={stripePromise} currency='CAD'>
       <>
         <DebugCart />
-        <Header />
+        <NavBar />
         <>{children}</>
       </>
     </CartProvider>
