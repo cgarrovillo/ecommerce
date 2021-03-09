@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 
-import { stripe } from '../../util/stripe'
+import { stripe } from '../../../util/stripe'
 
 /**
  * Gets all the active Products in the Stripe store.
@@ -16,7 +16,8 @@ const getAllProducts = async (ctx: Context) => {
     })
     .catch(err => {
       console.error(err)
-      ctx.body = 'An unknown error occurred.'
+      ctx.response.status = 500
+      ctx.response.body = 'An unknown error occurred.'
     })
 }
 
