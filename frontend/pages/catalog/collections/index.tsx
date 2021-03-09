@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
 import React from 'react'
-import useSWR from 'swr'
 
 import Layout from '../../../components/Layout'
 import Banner from '../../../components/atoms/banner'
@@ -9,7 +8,6 @@ import Collection from '../../../components/templates/collection.gallery'
 import { Typography, makeStyles } from '@material-ui/core'
 
 const Collections: NextPage = () => {
-  const { data, error } = useSWR('/api/collections')
   const styles = useStyles()
 
   return (

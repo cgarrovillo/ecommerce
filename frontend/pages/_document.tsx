@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
 }
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
-// it's compatible with server-side generation (SSG).
+// it's compatible with server-side rendering (SSR).
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Render app and page and get the context of the page with collected side effects.
   const sheets = new ServerStyleSheets()

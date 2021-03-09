@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from 'next'
+import type { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
 import SwiperCore, { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -12,17 +12,13 @@ import BuyButton from '../../../components/atoms/buy.button'
 
 import { Typography, makeStyles, Grid, Container } from '@material-ui/core'
 import { formatAmountForDisplay } from '../../../utils/stripe-helpers'
-import { axiosGet } from '../../../utils/api-helpers'
+import { getAllProducts, getPriceOfProduct } from '../../../utils/api-helpers'
 
 SwiperCore.use([Pagination])
 
-// This is to optimize performance in useSWR, as the data returned from this can be passed on to {initialData}.
-// See [Pre-rendering.](https://swr.vercel.app/docs/with-nextjs#pre-rendering)
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export const getStaticProps: GetStaticProps = async context => {
-  const price: Stripe.Price = await axiosGet(
-    `http://localhost:3000/api/prices/${context?.params?.product_id}`
-  )
+  const price: Stripe.Price = await getPriceOfProduct(`${context?.params?.product_id}`)
 
   return { props: { price } }
 }
@@ -30,8 +26,9 @@ export const getStaticProps: GetStaticProps = async context => {
 // Since this is a dynamic route. This is necessary for getStaticProps to actually pre-render the page.
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allProducts: Stripe.Product[] = await axiosGet('http://localhost:3000/api/products')
+  const allProducts: Stripe.Product[] = await getAllProducts()
   const paths = allProducts.map(prod => ({
+    // In getStaticProps() above, this is used by the context parameter
     params: { product_id: prod.id },
   }))
 
@@ -41,7 +38,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 /**
  * SSG Rendered Product page using a fetched Price object from Stripe.
- * Takes advantage of Pre-rendering & live updates. See [Pre-rendering.](https://swr.vercel.app/docs/with-nextjs#pre-rendering)
+ * For SSG to work on this dynamic route, getStaticPaths is used to determine the different kinds of products we have.
+ * getStaticPROPS is then used to actually fetch more data about that product object, which is then consumed by the page itself.
  * @returns
  */
 const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {

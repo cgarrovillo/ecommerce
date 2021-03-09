@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
-import { CartProvider } from 'use-shopping-cart'
+import { CartProvider, DebugCart } from 'use-shopping-cart'
 import getStripe from '../utils/get-stripejs'
 
 import Header from './organisms/header'
@@ -29,6 +29,7 @@ const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
     </Head>
     <CartProvider mode='checkout-session' stripe={stripePromise} currency='CAD'>
       <>
+        <DebugCart />
         <Header />
         <>{children}</>
       </>

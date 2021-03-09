@@ -1,13 +1,28 @@
-import { NextPage } from 'next'
+import type Stripe from 'stripe'
+import type { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from 'next'
 import React from 'react'
+import { Typography, makeStyles } from '@material-ui/core'
 
 import Layout from '../components/Layout'
 import Banner from '../components/atoms/banner'
 import Collection from '../components/templates/collection.gallery'
 
-import { Typography, makeStyles } from '@material-ui/core'
+import { getCollection } from '../utils/api-helpers'
 
-const IndexPage: NextPage = () => {
+// https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
+export const getStaticProps: GetStaticProps = async () => {
+  // Determines the collection to highlight on the HomePage
+  const collectionData: Stripe.Price[] = await getCollection('comfort2021')
+
+  return { props: { collectionData } }
+}
+
+/**
+ * SSG Rendered Home Page. The home page mainly contains Collections and not the full catalog.
+ * Thus, only collections need to be fetched.
+ * @returns
+ */
+const HomePage = ({ collectionData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const styles = useStyles()
 
   return (
@@ -17,7 +32,7 @@ const IndexPage: NextPage = () => {
           a brand for the greater good
         </Typography>
       </Banner>
-      <Collection collection='comfort2021' title='the comfort collection' />
+      <Collection collectionData={collectionData} title='the comfort collection' />
     </Layout>
   )
 }
@@ -31,4 +46,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default IndexPage
+export default HomePage

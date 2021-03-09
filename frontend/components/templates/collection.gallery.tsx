@@ -1,17 +1,22 @@
+import type Stripe from 'stripe'
 import React from 'react'
 import { Grid, makeStyles, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Mousewheel } from 'swiper'
 import 'swiper/swiper-bundle.css'
 
-import useCollection from '../../hooks/useCollection'
 import ProductCard from '../molecules/product.card'
 
 SwiperCore.use([Mousewheel])
 
 type Props = {
-  collection: string
+  collectionData: Stripe.Price[]
   title: string
+}
+
+// Used only when isMobile != true
+const mouseWheelOpts = {
+  forceToAxis: true,
 }
 
 /**
@@ -19,17 +24,11 @@ type Props = {
  * @param collection The collection value, taken from Product metadata
  * @param title The display title for this collection
  */
-const Collection: React.FC<Props> = ({ collection, title }) => {
-  const { collectionData, isLoading, isError } = useCollection(collection)
-
+const Collection: React.FC<Props> = ({ collectionData, title }) => {
   const theme = useTheme()
   const styles = useStyles()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-  const mouseWheel = isMobile
-    ? false
-    : {
-        forceToAxis: true,
-      }
+  const mouseWheel = isMobile ? false : mouseWheelOpts
 
   return (
     <Grid container className={styles.container}>

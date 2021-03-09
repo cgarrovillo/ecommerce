@@ -24,7 +24,7 @@
     "stripe": "^8.137.0",
     "swiper": "^6.4.15",
     "swr": "^0.4.2",
-    "use-shopping-cart": "^2.4.2"
+    "use-shopping-cart": "^3.0.0-beta.3"
   },
   "devDependencies": {
     "@types/micro": "^7.3.3",

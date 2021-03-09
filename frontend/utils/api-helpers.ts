@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { URLS } from '../config/constants'
+
 /**
  * Helper function to GET data from a NextJS API Route
  * @param url
@@ -13,38 +15,14 @@ export async function fetchGetJSON(url: string) {
   }
 }
 
-/**
- * Helper function to POST data from a NextJS API Route
- * @param url
- * @param data
- */
-export async function fetchPostJSON(url: string, data?: {}) {
-  try {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *client
-      body: JSON.stringify(data || {}), // body data type must match "Content-Type" header
-    })
-    return await response.json() // parses JSON response into native JavaScript objects
-  } catch (err) {
-    throw new Error(err.message)
-  }
+export async function getAllProducts() {
+  return axios.get(`${URLS.API}/products`).then(res => res.data)
 }
 
-/**
- * Simple wrapper for Axios Get Requests
- * @param url
- * @returns
- */
-export async function axiosGet(url: string) {
-  return axios.get(url).then(res => res.data)
+export async function getPriceOfProduct(product_id: string) {
+  return axios.get(`${URLS.API}/prices/${product_id}`).then(res => res.data)
+}
+
+export async function getCollection(collection_name: string) {
+  return axios.get(`${URLS.API}/collections/${collection_name}`).then(res => res.data)
 }
