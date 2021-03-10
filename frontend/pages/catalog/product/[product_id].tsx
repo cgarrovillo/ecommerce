@@ -118,7 +118,7 @@ const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
               </Grid>
 
               <Grid item xs={12}>
-                <BuyButton label='Add to Bag' price={price} />
+                <BuyButton price={price}>Add to Bag</BuyButton>
               </Grid>
             </Grid>
           </Grid>

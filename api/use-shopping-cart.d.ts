@@ -1,4 +1,4 @@
-export * from 'use-shopping-cart/react'
+// export * from 'use-shopping-cart/react'
 
 declare module 'use-shopping-cart' {
   export function validateCartItems(

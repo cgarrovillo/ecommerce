@@ -16,6 +16,7 @@ const getCollection = async (ctx: Context) => {
     .list({
       active: true,
       expand: ['data.product'],
+      limit: 100,
     })
     .then(price => {
       // Filter the Prices that have a Product object with a metadata.collection property that matches the collectionName found in the query.

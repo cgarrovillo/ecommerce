@@ -1,33 +1,31 @@
 import Stripe from 'stripe'
+import _ from 'lodash'
 
-import getProductPrice from './getProductPrice'
-import type { CartItem } from '../util/types'
+import { CartItem } from '../util/types'
 
-/**
- * Custom In-house Validation
- * @param inventorySrc
- * @param cartDetails
- */
-const validateCartItems = async (cartDetails: Array<CartItem>) => {
-  const validatedItems = []
+type Combined = Stripe.Price & CartItem
 
-  for (const cartItem of cartDetails) {
-    // Check if the product exists in Stripe at all
-    const prices = await getProductPrice(cartItem.id)
+const validateCartItems = (inventory: Stripe.Price[], cart_items: CartItem[]) => {
+  const matches: Stripe.Price[] = _.intersectionBy(inventory, cart_items, 'id')
 
-    if (!prices || prices.length === 0) {
-      return
-    }
-
-    const lineItem: Stripe.Checkout.SessionCreateParams.LineItem = {
-      price: prices[0].id,
-      quantity: cartItem.quantity,
-    }
-
-    validatedItems.push(lineItem)
+  if (matches.length === 0) {
+    return
   }
 
-  return validatedItems
+  const merged = _.merge(matches, cart_items)
+  const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = merged.map(
+    (item: Combined) => {
+      return {
+        price: item.id,
+        adjustable_quantity: {
+          enabled: true,
+        },
+        quantity: item.quantity,
+      }
+    }
+  )
+
+  return line_items
 }
 
 export default validateCartItems

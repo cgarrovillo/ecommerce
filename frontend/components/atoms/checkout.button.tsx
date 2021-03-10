@@ -3,36 +3,34 @@ import React, { useCallback } from 'react'
 import { makeStyles, Box, Button } from '@material-ui/core'
 import { useShoppingCart } from 'use-shopping-cart'
 
-import { CURRENCY } from '../../config/constants'
+import { createCheckoutSession } from '../../utils/api-helpers'
+import getStripe from '../../utils/get-stripejs'
 
 interface Props {
-  children: string
-  price: Stripe.Price
+  price?: Stripe.Price
 }
 
-const BuyButton: React.FC<Props> = ({ children, price }) => {
+const CheckoutButton: React.FC<Props> = ({ price }) => {
   const styles = useStyles()
-  const { addItem } = useShoppingCart()
+  const { cartDetails, cartCount } = useShoppingCart()
 
   const product = price?.product as Stripe.Product
 
   const addToBag = useCallback(
-    event => {
-      if (!event?.isTrusted) {
+    async (event: React.MouseEvent) => {
+      event.preventDefault()
+      if (!event?.isTrusted || cartCount < 1) {
         return
       }
 
-      const item = {
-        name: product.name,
-        descsription: product?.description,
-        id: price.id,
-        sku: price.id,
-        price: price.unit_amount!,
-        currency: CURRENCY,
-        image: product?.images[0],
-      }
+      const stripe = await getStripe()
+      const session_id = await createCheckoutSession(cartDetails)
+      console.log(session_id)
 
-      addItem(item)
+      // TODO: stripe.redirecttocheckout
+      stripe?.redirectToCheckout({
+        sessionId: session_id,
+      })
     },
     [price]
   )
@@ -40,7 +38,7 @@ const BuyButton: React.FC<Props> = ({ children, price }) => {
   return (
     <Box className={styles.container}>
       <Button className={styles.link} onClick={addToBag}>
-        {children}
+        Checkout
       </Button>
     </Box>
   )
@@ -71,4 +69,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default BuyButton
+export default CheckoutButton

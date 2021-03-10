@@ -10,6 +10,7 @@ const getAllProducts = async (ctx: Context) => {
   return stripe.products
     .list({
       active: true,
+      limit: 100,
     })
     .then(value => {
       ctx.response.body = value.data

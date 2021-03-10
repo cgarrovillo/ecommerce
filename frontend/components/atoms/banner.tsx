@@ -5,6 +5,7 @@ type Props = {
   children: any
 }
 
+// TODO: Sticky this to navbar container. At time of writing, pulling down shows background behind banner.
 const Banner: React.FC<Props> = ({ children, ...props }) => {
   const styles = useStyles()
 
