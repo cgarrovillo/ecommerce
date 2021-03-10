@@ -1,44 +1,77 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import type Stripe from 'stripe'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Typography, makeStyles } from '@material-ui/core'
-
-import { formatAmountForDisplay } from '../../utils/stripe-helpers'
+import { Typography, makeStyles, ButtonGroup, IconButton } from '@material-ui/core'
+import { CartEntry, useShoppingCart } from 'use-shopping-cart'
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
 type Props = {
-  price: Stripe.Price
+  item: CartEntry
+  simple?: boolean
 }
 
 /**
  * Displays a Product Card. Uses the first image from the Stripe.Product.Images[] as the display image.
  * @param price The Stripe.Price containing a Stripe.Product to display
  */
-const CartItem: React.FC<Props> = ({ price }) => {
-  const product = price.product as Stripe.Product
-  const name = product.name?.toLowerCase()
-  const img = product.images[0]
-
+const CartItem: React.FC<Props> = ({ item, simple = false }) => {
+  const { incrementItem, decrementItem } = useShoppingCart()
   const styles = useStyles()
+
+  const increment = useCallback((event: React.MouseEvent) => {
+    event.preventDefault()
+    if (!event.isTrusted) {
+      return
+    }
+    incrementItem(item.sku)
+  }, [])
+
+  const decrement = useCallback((event: React.MouseEvent) => {
+    event.preventDefault()
+    if (!event.isTrusted) {
+      return
+    }
+    if (item.quantity !== 1) decrementItem(item.sku)
+  }, [])
+
   return (
-    <Link href={`/catalog/product/${product.id}`}>
-      <div className={styles.card}>
-        <div className={styles.imgContainer}>
-          <Image
-            src={img}
-            alt={`Picture of ${name}`}
-            width={383}
-            height={601}
-            layout='responsive'
-            quality={100}
-          />
-          <div className={styles.productInfoContainer}>
-            <Typography variant='h6' className={styles.productInfoName}>
-              {name}
-            </Typography>
-            <Typography variant='h6'>
-              {formatAmountForDisplay(price.unit_amount!, 'CAD')}
-            </Typography>
+    <Link href={`/catalog/product/${item.product_data.id}`}>
+      <div className={styles.container}>
+        <div>
+          <div>
+            <Image
+              src={item.image!}
+              alt={`a picture of ${item.name}`}
+              width={189}
+              height={258}
+              quality={100}
+            />
+          </div>
+        </div>
+        <div>
+          <div className={styles.detailsContainer}>
+            <Typography variant='h5'>{item.name}</Typography>
+            <Typography variant='body2'>{item.formattedValue}</Typography>
+            <Typography variant='body2'>Qty. {item.quantity}</Typography>
+            <div className={simple ? styles.hidden : ''}>
+              <div>
+                <IconButton
+                  color='primary'
+                  size='small'
+                  className={styles.iconButton}
+                  onClick={decrement}>
+                  <AiOutlineMinus />
+                </IconButton>
+                <IconButton
+                  color='primary'
+                  size='small'
+                  className={styles.iconButton}
+                  onClick={increment}>
+                  <AiOutlinePlus />
+                </IconButton>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -47,23 +80,31 @@ const CartItem: React.FC<Props> = ({ price }) => {
 }
 
 const useStyles = makeStyles(theme => ({
-  card: {
+  root: {
     cursor: 'pointer',
-    display: 'inline-block',
-    width: 320,
-    [theme.breakpoints.down('sm')]: {
-      width: 283,
+  },
+  container: {
+    display: 'flex',
+    cursor: 'pointer',
+    '&:hover': {
+      '& h5': {
+        textDecoration: 'underline',
+      },
     },
   },
-  imgContainer: {
-    width: '100%',
+  detailsContainer: {
+    padding: '1em',
   },
-  productInfoContainer: {
-    paddingTop: '1em',
-    paddingBottom: '1em',
+
+  hidden: {
+    display: 'none',
   },
-  productInfoName: {
-    lineHeight: '50%',
+
+  iconButton: {
+    margin: '0.1em 0.5em',
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
   },
 }))
 

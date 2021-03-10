@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={lightTheme}>
           {/* https://material-ui.com/components/css-baseline/ */}
           <CssBaseline />
-          <DebugCart />
+          {/* <DebugCart /> */}
           <Component {...pageProps} />
         </ThemeProvider>
       </CartProvider>

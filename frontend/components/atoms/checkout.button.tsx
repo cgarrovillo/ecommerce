@@ -10,13 +10,17 @@ interface Props {
   price?: Stripe.Price
 }
 
+/**
+ * Renders a button to initiate checkout when there is no price attribute.
+ * If a price attribute is present, renders an 'Add to Bag & Checkout' button, which does what it says.
+ * @param price An attribute containing a Price object.
+ * @returns
+ */
 const CheckoutButton: React.FC<Props> = ({ price }) => {
   const styles = useStyles()
   const { cartDetails, cartCount } = useShoppingCart()
 
-  const product = price?.product as Stripe.Product
-
-  const addToBag = useCallback(
+  const handleCheckout = useCallback(
     async (event: React.MouseEvent) => {
       event.preventDefault()
       if (!event?.isTrusted || cartCount < 1) {
@@ -25,9 +29,7 @@ const CheckoutButton: React.FC<Props> = ({ price }) => {
 
       const stripe = await getStripe()
       const session_id = await createCheckoutSession(cartDetails)
-      console.log(session_id)
 
-      // TODO: stripe.redirecttocheckout
       stripe?.redirectToCheckout({
         sessionId: session_id,
       })
@@ -36,21 +38,15 @@ const CheckoutButton: React.FC<Props> = ({ price }) => {
   )
 
   return (
-    <Box className={styles.container}>
-      <Button className={styles.link} onClick={addToBag}>
+    <div>
+      <Button className={styles.link} onClick={handleCheckout}>
         Checkout
       </Button>
-    </Box>
+    </div>
   )
 }
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-    },
-    display: 'inline-block',
-  },
   link: {
     display: 'block',
     padding: '0.5em 4em',

@@ -49,6 +49,10 @@ const options = (dark: boolean): ThemeOptions => {
         'sans-serif',
         'Megona',
       ].join(','),
+      allVariants: {
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+      },
       h2: {
         fontWeight: 700,
       },

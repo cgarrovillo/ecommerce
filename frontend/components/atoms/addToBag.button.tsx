@@ -30,6 +30,7 @@ const BuyButton: React.FC<Props> = ({ children, price }) => {
         price: price.unit_amount!,
         currency: CURRENCY,
         image: product?.images[0],
+        product_data: product,
       }
 
       addItem(item)

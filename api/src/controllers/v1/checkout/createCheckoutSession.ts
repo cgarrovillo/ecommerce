@@ -11,19 +11,18 @@ const createCheckoutSession = async (ctx: Context) => {
   const cart_items = ctx.request.body as CartItem[]
 
   try {
-    // Validate cart_items
+    // Turn the cart_items into line_items
+    const line_items = await validateCartItems(cart_items)
 
-    const inventory = await stripe.prices.list({
-      active: true,
-      expand: ['data.product'],
-      limit: 100,
-    })
-
-    const line_items = validateCartItems(inventory.data, cart_items)
+    if (!line_items) {
+      ctx.status = 500
+      return
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      // TODO: Determine which countries to ship to
+      // @ts-ignore
+      shipping_rates: ['shr_1ITJsNJe4oNYc3QvZnoE62W8'],
       shipping_address_collection: {
         allowed_countries: ['US', 'CA'],
       },
@@ -31,14 +30,13 @@ const createCheckoutSession = async (ctx: Context) => {
       mode: 'payment',
       success_url: `${URLS.STORE_DOMAIN}?success=true`,
       cancel_url: `${URLS.STORE_DOMAIN}?canceled=true`,
-      // @ts-ignore
-      shipping_rates: ['shr_1ITJsNJe4oNYc3QvZnoE62W8'],
     })
 
     // Return with session id
     ctx.body = session.id
   } catch (err) {
     console.error(err)
+    ctx.status = 500
   }
 }
 

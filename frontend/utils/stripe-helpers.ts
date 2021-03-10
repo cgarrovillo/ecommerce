@@ -34,7 +34,10 @@ export function formatAmountForDisplayDecimal(unit_amount: number, currency: str
     currencyDisplay: 'symbol',
   })
   const amt = integerToCents(unit_amount)
-  return numberFormat.format(amt)
+  return numberFormat
+    .format(amt)
+    .toString()
+    .replace(/[a-zA-Z]*/i, '')
 }
 
 /**

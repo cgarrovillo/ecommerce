@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 import Layout from '../../../components/Layout'
 import Breadcrumbs from '../../../components/atoms/breadcrumbs'
-import BuyButton from '../../../components/atoms/buy.button'
+import BuyButton from '../../../components/atoms/addToBag.button'
 
 import { Typography, makeStyles, Grid, Container } from '@material-ui/core'
 import { formatAmountForDisplay } from '../../../utils/stripe-helpers'
