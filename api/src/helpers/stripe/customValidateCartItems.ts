@@ -1,8 +1,8 @@
 import Stripe from 'stripe'
 import _ from 'lodash'
 
-import { stripe } from '../util/stripe'
-import { CartItem } from '../util/types'
+import { stripe } from '../../util/stripe'
+import { CartItem } from '../../types/usc'
 
 type Combined = Stripe.Price & CartItem
 

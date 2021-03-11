@@ -48,6 +48,7 @@ const CheckoutButton: React.FC<Props> = ({ price }) => {
 
 const useStyles = makeStyles(theme => ({
   link: {
+    width: '100%',
     display: 'block',
     padding: '0.5em 4em',
     borderRadius: 0,

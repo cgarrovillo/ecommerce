@@ -16,7 +16,7 @@ import { BsBag, BsBagFill } from 'react-icons/bs'
 import { useShoppingCart } from 'use-shopping-cart'
 
 import NavLink from '../atoms/navbar.link'
-import CartDrawerContent from '../templates/cart'
+import CartDrawerContent from '../templates/cart-drawer-content'
 
 type ToggleEvent = React.KeyboardEvent | React.MouseEvent
 // TODO: useShoppingCart , wrap in materialui Badge, put shopping cart drawer logic in here

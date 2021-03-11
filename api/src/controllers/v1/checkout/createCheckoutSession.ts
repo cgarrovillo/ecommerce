@@ -3,9 +3,9 @@ import Stripe from 'stripe'
 
 import { stripe } from '../../../util/stripe'
 import { URLS } from '../../../util/constants'
-import { CartItem } from '../../../util/types'
+import type { CartItem } from '../../../types/usc'
 
-import validateCartItems from '../../../helpers/customValidateCartItems'
+import validateCartItems from '../../../helpers/stripe/customValidateCartItems'
 
 const createCheckoutSession = async (ctx: Context) => {
   const cart_items = ctx.request.body as CartItem[]

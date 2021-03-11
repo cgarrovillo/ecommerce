@@ -23,10 +23,10 @@ const CartDrawerContent = () => {
       <Container className={styles.root}>
         <div className={styles.cartItemsContainer}>
           {cart.map((item: any, i: number) => (
-            <>
-              <CartItem item={item} key={item.id} simple />
+            <div key={item.id}>
+              <CartItem item={item} simple />
               {i > 1 && <Divider />}
-            </>
+            </div>
           ))}
         </div>
         <div>
