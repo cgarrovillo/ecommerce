@@ -1,4 +1,5 @@
 import { Context } from 'koa'
+import mongoose from 'mongoose'
 
 import { stripe } from '../../../util/stripe'
 
@@ -7,6 +8,7 @@ import { stripe } from '../../../util/stripe'
  * @param ctx
  */
 const getAllProducts = async (ctx: Context) => {
+  console.log(mongoose.connection.readyState)
   return stripe.products
     .list({
       active: true,

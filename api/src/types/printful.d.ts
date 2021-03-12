@@ -53,11 +53,18 @@ namespace Printful {
     external_id: string
     variant_id: number
     sync_variant_id: number
+    external_variant_id: string
     //...
 
     quantity: number
-    price: string
-    retail_price: string
+    price?: string
+    retail_price?: string
+
+    /**
+     * The actual printfiles.
+     * What will be printed on the product.
+     */
+    files: File[]
 
     /**
      * Display name of the item. If not given, a
