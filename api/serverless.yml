@@ -6,7 +6,7 @@ useDotenv: true
 
 provider:
   name: aws
-  endpointType: aws
+  endpointType: PRIVATE
   vpcEndpointIds:
     - vpce-039515c4a706c8278
   runtime: nodejs12.x

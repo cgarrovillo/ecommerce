@@ -7,12 +7,17 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "predeploy": "tsc",
-    "start": "tsc --watch | sls offline start",
+    "build": "babel src --out-dir build --extensions '.ts' ",
+    "watch": "babel --watch src --out-dir build --extensions '.ts' ",
+    "predeploy": "yarn build",
+    "start": "yarn clean && yarn watch | sls offline start",
     "deploy:prod": "sls deploy --stage prod",
-    "deploy:dev": "sls deploy --stage dev"
+    "deploy:dev": "sls deploy --stage dev",
+    "clean": "rm -rf ./build"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "@babel/runtime": "^7.13.10",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "koa": "^2.13.1",
@@ -24,6 +29,11 @@
     "typescript": "^4.2.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/koa": "^2.13.0",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa__cors": "^3.0.2",
