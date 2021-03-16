@@ -1,5 +1,18 @@
 import mongoose from 'mongoose'
 
+let isConnected: boolean
+
+const mongooseOpts: mongoose.ConnectOptions =
+  // Buffering means mongoose will queue up operations if it gets
+  // disconnected from MongoDB and send them when it reconnects.
+  // With serverless, better to fail-fast if not connected.
+  {
+    bufferCommands: false, // Disable mongoose buffering
+    bufferMaxEntries: 0, // MongoDB driver buffering
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+
 /**
  * Creates or reuses a MongoDB connection.
  * When using this, do not wrap in a try-catch, as it is better to fail-fast if something goes wrong.
@@ -8,49 +21,21 @@ import mongoose from 'mongoose'
  */
 const connectDB = async () => {
   try {
-    return mongoose.connect(
-      process.env.MONGODB_URI!,
-      // Buffering means mongoose will queue up operations if it gets
-      // disconnected from MongoDB and send them when it reconnects.
-      // With serverless, better to fail-fast if not connected.
-      {
-        bufferCommands: false, // Disable mongoose buffering
-        bufferMaxEntries: 0, // MongoDB driver buffering
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    )
+    // Try to use an existing connection
+    if (isConnected) {
+      console.log('=> using existing database connection')
+      return Promise.resolve()
+    }
+
+    // If not, create one
+    console.log('=> using new database connection')
+    return mongoose.connect(process.env.MONGODB_URI!, mongooseOpts).then(db => {
+      isConnected = db.connection.readyState === 1
+    })
   } catch (e) {
     console.error('Could not connect')
     throw e
   }
 }
-
-export const getConnection = () => {
-  return mongoose.connection
-}
-
-mongoose.connection.on('connected', function () {
-  console.log('Mongoose connected to ' + process.env.MONGODB_URI)
-})
-mongoose.connection.on('error', function (err) {
-  console.log('Mongoose connection error: ' + err)
-})
-mongoose.connection.on('disconnected', function () {
-  console.log('Mongoose disconnected')
-})
-
-const gracefulShutdown = (msg: string, callback: Function) => {
-  mongoose.connection.close(() => {
-    console.log('Mongoose disconnected through ' + msg)
-    callback()
-  })
-}
-
-process.on('SIGINT', () => {
-  gracefulShutdown('Normal Termination', () => {
-    process.exit(0)
-  })
-})
 
 export default connectDB

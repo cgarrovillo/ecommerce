@@ -6,6 +6,9 @@ useDotenv: true
 
 provider:
   name: aws
+  endpointType: aws
+  vpcEndpointIds:
+    - vpce-039515c4a706c8278
   runtime: nodejs12.x
   memorySize: 512
   region: us-west-2
