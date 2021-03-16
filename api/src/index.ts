@@ -5,16 +5,10 @@ import bodyParser from 'koa-bodyparser'
 
 import v1routes from './controllers/v1/routes'
 
-import connectDB from './util/mongo'
-
 const app = new Koa()
 
 app.use(cors())
 app.use(bodyParser())
-app.use(async (ctx, next) => {
-  await connectDB()
-  next()
-})
 
 app.use(v1routes.routes())
 

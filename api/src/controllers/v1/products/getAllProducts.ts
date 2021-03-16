@@ -1,14 +1,13 @@
 import { Context } from 'koa'
-import mongoose from 'mongoose'
 
 import { stripe } from '../../../util/stripe'
+import connectDB from '../../../util/mongo'
 
 /**
  * Gets all the active Products in the Stripe store.
  * @param ctx
  */
 const getAllProducts = async (ctx: Context) => {
-  console.log(mongoose.connection.readyState)
   return stripe.products
     .list({
       active: true,

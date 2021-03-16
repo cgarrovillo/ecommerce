@@ -1,3 +1,5 @@
+org: cgarrovillo
+app: thoughtofyouco
 service: thoughtofyoucoapi
 
 useDotenv: true
@@ -6,11 +8,13 @@ provider:
   name: aws
   runtime: nodejs12.x
   memorySize: 512
-  stage: dev
   region: us-west-2
   lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
+  environment:
+    MONGODB_URI: ${ssm:MONGODB_URI}
+    STRIPE_RESTRICTED_KEY: ${ssm:STRIPE_RESTRICTED_KEY}
 
 plugins:
   - serverless-offline

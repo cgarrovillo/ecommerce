@@ -7,18 +7,23 @@ import mongoose from 'mongoose'
  * @returns
  */
 const connectDB = async () => {
-  return await mongoose.connect(
-    process.env.MONGODB_URI!,
-    // Buffering means mongoose will queue up operations if it gets
-    // disconnected from MongoDB and send them when it reconnects.
-    // With serverless, better to fail-fast if not connected.
-    {
-      bufferCommands: false, // Disable mongoose buffering
-      bufferMaxEntries: 0, // MongoDB driver buffering
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  try {
+    return mongoose.connect(
+      process.env.MONGODB_URI!,
+      // Buffering means mongoose will queue up operations if it gets
+      // disconnected from MongoDB and send them when it reconnects.
+      // With serverless, better to fail-fast if not connected.
+      {
+        bufferCommands: false, // Disable mongoose buffering
+        bufferMaxEntries: 0, // MongoDB driver buffering
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    )
+  } catch (e) {
+    console.error('Could not connect')
+    throw e
+  }
 }
 
 export const getConnection = () => {

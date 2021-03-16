@@ -1,4 +1,4 @@
-import { stripe } from '../util/stripe'
+import { stripe } from '../../util/stripe'
 
 /**
  * Returns the prices for a given product
