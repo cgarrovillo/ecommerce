@@ -1,6 +1,6 @@
 const PRODUCTION = {
   URLS: {
-    API: 'http://localhost:3001/api/v1',
+    API: 'https://abigo1kfka.execute-api.us-west-2.amazonaws.com/dev/v1',
   },
 }
 
