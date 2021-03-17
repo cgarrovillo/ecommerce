@@ -64,7 +64,7 @@ const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const swiperSlideWidth = isMobile ? '100%' : '560'
   const swiperSlideHeight = isMobile ? '100%' : '790'
 
-  if (router.isFallback) return <Layout>Loading...</Layout>
+  if (router.isFallback) return <Layout>Loading Product...</Layout>
   if (router.isFallback && !price) return <Layout>Error</Layout>
 
   return (

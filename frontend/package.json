@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "npx next",
     "build": "npx next build",
-    "start": "npx next start"
+    "start": "npx next start",
+    "deploy:preview": "npx vercel"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
