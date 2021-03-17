@@ -6,10 +6,8 @@ useDotenv: true
 
 provider:
   name: aws
-  endpointType: PRIVATE
-  vpcEndpointIds:
-    - vpce-039515c4a706c8278
   runtime: nodejs12.x
+  stage: ${opt:stage}
   memorySize: 512
   region: us-west-2
   lambdaHashingVersion: 20201221
@@ -27,8 +25,21 @@ custom:
     httpPort: 3001
 
 functions:
+  authorizerFunc:
+    handler: build/auth.handler
   app:
     handler: build/index.handler
     events:
-      - http: ANY /
-      - http: 'ANY /{proxy+}'
+      - http:
+          path: /
+          method: ANY
+      - http:
+          path: /{proxy+}
+          method: ANY
+          authorizer: authorizerFunc
+  getAllProducts:
+    handler: build/index.handler
+    events:
+      - http:
+          path: /${opt:stage}/v1/products
+          method: GET
