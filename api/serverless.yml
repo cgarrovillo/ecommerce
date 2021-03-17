@@ -16,6 +16,21 @@ provider:
   environment:
     MONGODB_URI: ${ssm:MONGODB_URI}
     STRIPE_RESTRICTED_KEY: ${ssm:STRIPE_RESTRICTED_KEY}
+  resourcePolicy:
+    - Effect: Allow
+      Principal: '*'
+      Action: execute-api:Invoke
+      Resource:
+        - execute-api:/*/*/*
+    - Effect: Deny
+      Principal: '*'
+      Action: execute-api:Invoke
+      Resource:
+        - execute-api:/*/*/*
+      Condition:
+        NotIpAddress:
+          aws:SourceIp:
+            - '184.68.124.102'
 
 plugins:
   - serverless-offline
@@ -25,8 +40,6 @@ custom:
     httpPort: 3001
 
 functions:
-  authorizerFunc:
-    handler: build/auth.handler
   app:
     handler: build/index.handler
     events:
@@ -36,7 +49,6 @@ functions:
       - http:
           path: /{proxy+}
           method: ANY
-          authorizer: authorizerFunc
   getAllProducts:
     handler: build/index.handler
     events:
