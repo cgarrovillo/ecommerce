@@ -22,19 +22,21 @@ const CheckoutButton: React.FC<Props> = ({ price }) => {
 
   const handleCheckout = useCallback(
     async (event: React.MouseEvent) => {
+      console.log('hit')
       event.preventDefault()
       if (!event?.isTrusted || cartCount < 1) {
         return
       }
 
       const stripe = await getStripe()
+      console.log(stripe)
       const session_id = await createCheckoutSession(cartDetails)
 
       stripe?.redirectToCheckout({
         sessionId: session_id,
       })
     },
-    [price]
+    [cartDetails]
   )
 
   return (
