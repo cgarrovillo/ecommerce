@@ -10,14 +10,14 @@ import validateCartItems from '../../../helpers/stripe/customValidateCartItems'
 const createCheckoutSession = async (ctx: Context) => {
   const cart_items = ctx.request.body as CartItem[]
 
+  if (!cart_items || cart_items.length === 0) {
+    ctx.status = 500
+    return
+  }
+
   try {
     // Turn the cart_items into line_items
     const line_items = await validateCartItems(cart_items)
-
-    if (!line_items) {
-      ctx.status = 500
-      return
-    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -37,6 +37,7 @@ const createCheckoutSession = async (ctx: Context) => {
   } catch (err) {
     console.error(err)
     ctx.status = 500
+    return
   }
 }
 
