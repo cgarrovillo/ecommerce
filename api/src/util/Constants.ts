@@ -10,7 +10,7 @@ const COMMON = {
 const PRODUCTION = {
   ...COMMON,
   URLS: {
-    STORE_DOMAIN: 'http://localhost:3000',
+    STORE_DOMAIN: 'https://thoughtofyou.co',
   },
 }
 
