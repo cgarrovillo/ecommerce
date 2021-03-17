@@ -21,4 +21,4 @@ const DEVELOPMENT = {
   },
 }
 
-export const URLS = process.env.NODE_ENV === 'production' ? PRODUCTION.URLS : DEVELOPMENT.URLS
+export const CONSTANTS = process.env.NODE_ENV === 'production' ? PRODUCTION : DEVELOPMENT

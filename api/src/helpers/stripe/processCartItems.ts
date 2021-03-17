@@ -8,7 +8,7 @@ import { CartItem } from '../../types/usc'
  * @param cart_items The cart items to validate
  * @returns An array of type Stripe line_item
  */
-const validateCartItems = async (
+const processCartItems = async (
   cart_items: CartItem[]
 ): Promise<Stripe.Checkout.SessionCreateParams.LineItem[]> => {
   if (cart_items.length === 0) {
@@ -42,4 +42,4 @@ const validateCartItems = async (
   })
 }
 
-export default validateCartItems
+export default processCartItems

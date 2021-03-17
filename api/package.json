@@ -14,7 +14,8 @@
     "deploy:prod": "sls deploy --stage prod",
     "deploy:dev": "sls deploy --stage dev",
     "clean": "rm -rf ./build",
-    "test": "jest"
+    "test": "jest",
+    "webhook:tunnel": "ngrok http 3001"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",

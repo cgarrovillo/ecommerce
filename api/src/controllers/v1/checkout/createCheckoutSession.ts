@@ -1,36 +1,44 @@
 import { Context } from 'koa'
-import Stripe from 'stripe'
 
 import { stripe } from '../../../util/stripe'
-import { URLS } from '../../../util/constants'
-import type { CartItem } from '../../../types/usc'
+import { CONSTANTS } from '../../../util/constants'
+import type { CartItem, Checkout } from '../../../types/usc'
 
-import validateCartItems from '../../../helpers/stripe/customValidateCartItems'
+import processCartItems from '../../../helpers/stripe/processCartItems'
 
 const createCheckoutSession = async (ctx: Context) => {
-  const cart_items = ctx.request.body as CartItem[]
+  const cart = ctx.request.body as CartItem[]
 
-  if (!cart_items || cart_items.length === 0) {
+  if (!cart || cart.length === 0) {
     ctx.status = 500
     return
   }
 
   try {
     // Turn the cart_items into line_items
-    const line_items = await validateCartItems(cart_items)
+    const line_items = await processCartItems(cart)
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      // @ts-ignore
-      shipping_rates: ['shr_1ITJsNJe4oNYc3QvZnoE62W8'],
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
+    const session = await stripe.checkout.sessions.create(
+      {
+        allow_promotion_codes: true,
+        billing_address_collection: 'auto',
+        expand: ['line_items'],
+        mode: 'payment',
+        payment_method_types: ['card'],
+        // @ts-ignore
+        shipping_rates: ['shr_1ITJsNJe4oNYc3QvZnoE62W8'],
+        shipping_address_collection: {
+          allowed_countries: ['US', 'CA'],
+        },
+        line_items: line_items,
+        submit_type: 'pay',
+        success_url: `${CONSTANTS.URLS.STORE_DOMAIN}?success=true`,
+        cancel_url: `${CONSTANTS.URLS.STORE_DOMAIN}?canceled=true`,
       },
-      line_items: line_items,
-      mode: 'payment',
-      success_url: `${URLS.STORE_DOMAIN}?success=true`,
-      cancel_url: `${URLS.STORE_DOMAIN}?canceled=true`,
-    })
+      {
+        // TODO: Indempotency
+      }
+    )
 
     // Return with session id
     ctx.body = session.id

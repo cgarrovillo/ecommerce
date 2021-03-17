@@ -1,12 +1,12 @@
 const PRODUCTION = {
   URLS: {
-    API: 'http://localhost:3001/api',
+    API: 'http://localhost:3001/api/v1',
   },
 }
 
 const DEVELOPMENT = {
   URLS: {
-    API: 'http://localhost:3001/dev',
+    API: 'http://localhost:3001/dev/v1',
   },
 }
 

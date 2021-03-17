@@ -4,7 +4,7 @@ import { createMockContext } from '@shopify/jest-koa-mocks'
 
 // Fn to be tested
 import createCheckoutSession from '../src/controllers/v1/checkout/createCheckoutSession'
-import validateCartItems from '../src/helpers/stripe/customValidateCartItems'
+import processCartItems from '../src/helpers/stripe/processCartItems'
 import Stripe from 'stripe'
 
 describe('Checkout Process', () => {
@@ -26,7 +26,7 @@ describe('Checkout Process', () => {
     const cart_items: any = []
 
     // The test
-    await expect(validateCartItems(cart_items)).rejects.toThrow()
+    await expect(processCartItems(cart_items)).rejects.toThrow()
   })
 
   /**
@@ -54,7 +54,7 @@ describe('Checkout Process', () => {
       },
     ]
 
-    const line_items = await validateCartItems(cart_items)
+    const line_items = await processCartItems(cart_items)
     const validated = validateItemsNoLodash(cart_items, stripeResp.data)
 
     // The test
@@ -86,7 +86,7 @@ describe('Checkout Process', () => {
       },
     ]
 
-    const line_items = await validateCartItems(cart_items)
+    const line_items = await processCartItems(cart_items)
     const validated = validateItemsNoLodash(cart_items, stripeResp.data)
 
     // The test

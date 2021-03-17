@@ -1,21 +1,29 @@
 import { Context } from 'koa'
 import Stripe from 'stripe'
 
-import { stripe } from '../../../util/stripe'
-import { URLS } from '../../../util/constants'
+import processNewOrder from '../../../helpers/stripe/processNewOrder'
 
-import createPrintfulOrder from '../../../helpers/printful/create-order'
-
+/**
+ * Webhook called by Stripe once a checkout session is completed, meaning an item was successfully paid for.
+ * @param ctx
+ * @returns
+ */
 const checkoutSessionCompleted = async (ctx: Context) => {
-  const session: Stripe.Checkout.Session = ctx.state.event
-  try {
-    createPrintfulOrder(session).then(() => {})
+  const event: Stripe.Event = ctx.state.stripeEvent
+  const session: Stripe.Checkout.Session = event.data.object as Stripe.Checkout.Session
 
-    return (ctx.status = 200)
-  } catch (err) {
-    console.error(err)
-    return (ctx.status = 500)
-  }
+  // Asynchronously process the order
+  processNewOrder(session)
+    .then(() => {})
+    .catch(err => {
+      console.error(`CRITICAL: ${session.payment_intent}`)
+      console.error(err)
+
+      return (ctx.status = 500)
+    })
+
+  // Return 200 quickly to tell Stripe we received the webhook
+  return (ctx.status = 200)
 }
 
 export default checkoutSessionCompleted

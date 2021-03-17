@@ -17,7 +17,7 @@ const verifyStripeSignature = (ctx: Context, next: Next) => {
     event = stripe.webhooks.constructEvent(payload, sig!, ENDPOINT_SECRET)
 
     // Store the constructed event in Koa Context State. A Context is created per request.
-    ctx.state.event = event
+    ctx.state.stripeEvent = event
   } catch (err) {
     // Return if stripe threw an error
     console.error(err.message)
