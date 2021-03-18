@@ -14,11 +14,6 @@ provider:
   apiGateway:
     shouldStartNameWithService: true
     resourcePolicy:
-      - Effect: Allow
-        Principal: '*'
-        Action: execute-api:Invoke
-        Resource:
-          - execute-api:/*/*/*
       - Effect: Deny
         Principal: '*'
         Action: execute-api:Invoke
@@ -27,7 +22,14 @@ provider:
         Condition:
           NotIpAddress:
             aws:SourceIp:
-              - '184.68.124.102'
+              - 2604:3d09:1c74:5500:85bf:a120:75c8:4e6a
+              - 96.51.165.91
+      - Effect: Allow
+        Principal: '*'
+        Action: execute-api:Invoke
+        Resource:
+          - execute-api:/*/*/*
+
   environment:
     MONGODB_URI: ${ssm:MONGODB_URI}
     STRIPE_RESTRICTED_KEY: ${ssm:STRIPE_RESTRICTED_KEY}
