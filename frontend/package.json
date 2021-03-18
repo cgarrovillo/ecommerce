@@ -9,10 +9,12 @@
     "dev": "npx next",
     "build": "npx next build",
     "start": "npx next start",
+    "debug": "ANALYZE=true yarn build",
     "deploy:preview": "npx vercel"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@next/bundle-analyzer": "^10.0.9",
     "@stripe/stripe-js": "^1.13.1",
     "axios": "^0.21.1",
     "micro": "^9.3.4",
@@ -26,7 +28,7 @@
     "stripe": "^8.137.0",
     "swiper": "^6.4.15",
     "swr": "^0.4.2",
-    "use-shopping-cart": "^3.0.0-beta.3"
+    "use-shopping-cart": "^2.4.3"
   },
   "devDependencies": {
     "@types/micro": "^7.3.3",
