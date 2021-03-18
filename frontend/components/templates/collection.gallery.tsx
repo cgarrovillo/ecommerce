@@ -20,6 +20,7 @@ const mouseWheelOpts = {
   forceToAxis: true,
 }
 
+//TODO: Add option to pass in collection value from stripe, instead of passing whole collectionData
 /**
  * Displays all Stripe products with the collection metadata.
  * @param collection The collection value, taken from Product metadata

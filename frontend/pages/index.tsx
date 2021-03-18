@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import type { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from 'next'
+import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import React from 'react'
 import { Typography, makeStyles } from '@material-ui/core'
 

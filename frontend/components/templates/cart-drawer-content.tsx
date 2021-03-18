@@ -10,7 +10,7 @@ const CartDrawerContent = () => {
   const styles = useStyles()
   const router = useRouter()
 
-  const { cartDetails, formattedTotalPrice, totalPrice } = useShoppingCart()
+  const { cartDetails, totalPrice } = useShoppingCart()
   const cart = Object.values(cartDetails)
 
   const goToCart = useCallback((event: React.MouseEvent) => {

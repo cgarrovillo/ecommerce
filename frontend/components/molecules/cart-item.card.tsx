@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
-import type Stripe from 'stripe'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Typography, makeStyles, ButtonGroup, IconButton } from '@material-ui/core'
+import { Typography, makeStyles, IconButton } from '@material-ui/core'
 import { CartEntry, useShoppingCart } from 'use-shopping-cart'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
@@ -79,7 +78,7 @@ const CartItem: React.FC<Props> = ({ item, simple = false }) => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     cursor: 'pointer',
   },

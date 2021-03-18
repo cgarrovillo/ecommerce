@@ -15,7 +15,7 @@ const Logo: React.FC<any> = ({ ...props }) => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     fontFamily: 'Megona',
     fontSize: '1.3rem',

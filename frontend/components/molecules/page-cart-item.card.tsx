@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
-import type Stripe from 'stripe'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Typography, makeStyles, ButtonGroup, IconButton, Grid } from '@material-ui/core'
+import { Typography, makeStyles, IconButton, Grid } from '@material-ui/core'
 import { CartEntry, useShoppingCart } from 'use-shopping-cart'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
@@ -85,7 +84,7 @@ const PageCartItem: React.FC<Props> = ({ item }) => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
   },

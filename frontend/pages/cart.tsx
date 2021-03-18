@@ -10,7 +10,7 @@ import CheckoutButton from '../components/atoms/checkout.button'
 const CartPage = () => {
   const styles = useStyles()
 
-  const { cartDetails, formattedTotalPrice, totalPrice, cartCount } = useShoppingCart()
+  const { cartDetails, totalPrice, cartCount } = useShoppingCart()
   const cart = Object.values(cartDetails)
 
   return (
@@ -31,7 +31,7 @@ const CartPage = () => {
         <Grid container>
           <Grid item xs={12} md={9}>
             <div>
-              {cart.map((item: any, i: number) => (
+              {cart.map((item: any) => (
                 <div key={item.id}>
                   <PageCartItem item={item} />
                 </div>

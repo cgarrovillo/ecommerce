@@ -1,14 +1,9 @@
-import type Stripe from 'stripe'
 import React, { useCallback } from 'react'
-import { makeStyles, Box, Button } from '@material-ui/core'
+import { makeStyles, Button } from '@material-ui/core'
 import { useShoppingCart } from 'use-shopping-cart'
 
 import { createCheckoutSession } from '../../utils/api-helpers'
 import getStripe from '../../utils/get-stripejs'
-
-interface Props {
-  price?: Stripe.Price
-}
 
 /**
  * Renders a button to initiate checkout when there is no price attribute.
@@ -16,7 +11,7 @@ interface Props {
  * @param price An attribute containing a Price object.
  * @returns
  */
-const CheckoutButton: React.FC<Props> = ({ price }) => {
+const CheckoutButton: React.FC<any> = () => {
   const styles = useStyles()
   const { cartDetails, cartCount } = useShoppingCart()
 

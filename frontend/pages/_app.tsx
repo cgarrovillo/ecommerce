@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { AppProps } from 'next/app'
+// @ts-ignore
 import { CartProvider, DebugCart } from 'use-shopping-cart'
 import NProgress from 'nprogress'
 
