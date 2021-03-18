@@ -6,6 +6,7 @@ import SwiperCore, { Mousewheel } from 'swiper'
 import 'swiper/swiper-bundle.css'
 
 import ProductCard from '../molecules/product.card'
+import swiperConfig from '../../config/swiper'
 
 SwiperCore.use([Mousewheel])
 
@@ -40,14 +41,7 @@ const Collection: React.FC<Props> = ({ collectionData, title }) => {
 
       <div className={styles.swiperContainer}>
         {/* Settings to stop annoying behaviour. */}
-        <Swiper
-          className={styles.swiper}
-          freeMode
-          touchAngle={65}
-          preloadImages={false}
-          updateOnImagesReady={false}
-          updateOnWindowResize={false}
-          mousewheel={mouseWheel}>
+        <Swiper className={styles.swiper} mousewheel={mouseWheel} {...swiperConfig}>
           {collectionData?.map(data => (
             <SwiperSlide key={data.id} className={styles.swiperSlide}>
               <ProductCard price={data} />
@@ -68,6 +62,7 @@ const useStyles = makeStyles(theme => ({
     padding: '2em',
   },
   swiperContainer: {
+    width: '100vw',
     paddingLeft: '4em',
     paddingRight: '4em',
     [theme.breakpoints.down('sm')]: {

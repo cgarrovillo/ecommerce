@@ -57,6 +57,20 @@ const options = (dark: boolean): ThemeOptions => {
         fontWeight: 700,
       },
     },
+    overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          html: {
+            overscrollBehaviorX: 'none',
+            overscrollBehaviorY: 'none',
+          },
+          body: {
+            overscrollBehaviorX: 'none',
+            overscrollBehaviorY: 'none',
+          },
+        },
+      },
+    },
   }
 }
 

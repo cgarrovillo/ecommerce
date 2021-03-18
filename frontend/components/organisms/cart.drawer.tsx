@@ -1,25 +1,12 @@
 import React, { useCallback } from 'react'
 import { useRouter } from 'next/router'
-import {
-  IconButton,
-  makeStyles,
-  SwipeableDrawer,
-  List,
-  ListItem,
-  useTheme,
-  useMediaQuery,
-  Badge,
-  Toolbar,
-  Drawer,
-} from '@material-ui/core'
+import { IconButton, makeStyles, useTheme, useMediaQuery, Badge, Drawer } from '@material-ui/core'
 import { BsBag, BsBagFill } from 'react-icons/bs'
 import { useShoppingCart } from 'use-shopping-cart'
 
-import NavLink from '../atoms/navbar.link'
 import CartDrawerContent from '../templates/cart-drawer-content'
 
 type ToggleEvent = React.KeyboardEvent | React.MouseEvent
-// TODO: useShoppingCart , wrap in materialui Badge, put shopping cart drawer logic in here
 // When the viewport is less than 600px (mobile), the button leads to a full page view of the cart.
 // On desktop, hover shows a side drawer.
 const CartDrawer: React.FC = () => {
@@ -38,6 +25,7 @@ const CartDrawer: React.FC = () => {
 
   const toggleDrawer = useCallback(
     (open: boolean) => (event: ToggleEvent) => {
+      // If called wwhen event was a keyboard event, just return fast
       if (
         event &&
         event.type === 'keydown' &&
@@ -47,9 +35,11 @@ const CartDrawer: React.FC = () => {
         return
       }
 
+      // Only open if not on mobile; also Delay opening of drawer by 100ms
       if (open) {
-        setTimeout(() => setState(open), 100)
+        !isMobile && setTimeout(() => setState(open), 100)
       } else {
+        // Close drawer.
         setState(open)
       }
     },
@@ -72,11 +62,9 @@ const CartDrawer: React.FC = () => {
           paper: styles.drawerPaper,
           modal: styles.drawerModal,
         }}
-        PaperProps={
-          {
-            // onMouseLeave: toggleDrawer(false),
-          }
-        }
+        PaperProps={{
+          onMouseLeave: toggleDrawer(false),
+        }}
         anchor='right'
         open={state}
         onClose={toggleDrawer(false)}

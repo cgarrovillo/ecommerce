@@ -11,7 +11,7 @@
     "watch": "babel --watch src --out-dir build --extensions '.ts' ",
     "predeploy": "yarn test && yarn build",
     "predeploy:dev": "yarn test && yarn build",
-    "start": "yarn clean && yarn watch | sls offline start",
+    "start": "yarn clean && yarn watch | sls offline start --stage dev",
     "deploy:prod": "sls deploy --stage prod",
     "deploy:dev": "sls deploy --stage dev",
     "clean": "rm -rf ./build",

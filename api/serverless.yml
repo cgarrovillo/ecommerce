@@ -13,24 +13,24 @@ provider:
   lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
+    resourcePolicy:
+      - Effect: Allow
+        Principal: '*'
+        Action: execute-api:Invoke
+        Resource:
+          - execute-api:/*/*/*
+      - Effect: Deny
+        Principal: '*'
+        Action: execute-api:Invoke
+        Resource:
+          - execute-api:/*/*/*
+        Condition:
+          NotIpAddress:
+            aws:SourceIp:
+              - '184.68.124.102'
   environment:
     MONGODB_URI: ${ssm:MONGODB_URI}
     STRIPE_RESTRICTED_KEY: ${ssm:STRIPE_RESTRICTED_KEY}
-  resourcePolicy:
-    - Effect: Allow
-      Principal: '*'
-      Action: execute-api:Invoke
-      Resource:
-        - execute-api:/*/*/*
-    - Effect: Deny
-      Principal: '*'
-      Action: execute-api:Invoke
-      Resource:
-        - execute-api:/*/*/*
-      Condition:
-        NotIpAddress:
-          aws:SourceIp:
-            - '184.68.124.102'
 
 plugins:
   - serverless-offline

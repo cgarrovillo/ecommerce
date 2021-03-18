@@ -7,7 +7,6 @@ import NavLink from '../atoms/navbar.link'
 type Anchor = 'left' | 'right'
 type ToggleEvent = React.KeyboardEvent | React.MouseEvent
 
-// TODO: onClick "ripple" effect of MaterialUI is too slow.
 const MenuDrawer: React.FC = () => {
   const styles = useStyles()
 
@@ -36,7 +35,8 @@ const MenuDrawer: React.FC = () => {
     <>
       <IconButton
         className={styles.button}
-        aria-label='add to bag'
+        aria-label='Open the menu'
+        disableTouchRipple
         onClick={toggleDrawer('right', true)}>
         <FiMenu />
       </IconButton>
