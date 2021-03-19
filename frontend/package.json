@@ -10,7 +10,7 @@
     "build": "npx next build",
     "start": "npx next start",
     "debug": "ANALYZE=true yarn build",
-    "deploy:preview": "npx vercel"
+    "deploy:preview": "vercel"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
