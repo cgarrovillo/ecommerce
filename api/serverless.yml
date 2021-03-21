@@ -24,6 +24,12 @@ provider:
             aws:SourceIp:
               - 2604:3d09:1c74:5500:85bf:a120:75c8:4e6a
               - 96.51.165.91
+              - api.stripe.com
+              - checkout.stripe.com
+              - js.stripe.com
+              - m.stripe.com
+              - m.stripe.network
+              - q.stripe.com
       - Effect: Allow
         Principal: '*'
         Action: execute-api:Invoke
@@ -33,6 +39,7 @@ provider:
   environment:
     MONGODB_URI: ${ssm:MONGODB_URI}
     STRIPE_RESTRICTED_KEY: ${ssm:STRIPE_RESTRICTED_KEY}
+    STRIPE_WH_CHECKOUT_COMPLETE: ${ssm:STRIPE_WH_CHECKOUT_COMPLETE}
 
 plugins:
   - serverless-offline

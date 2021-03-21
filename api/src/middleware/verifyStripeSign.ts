@@ -21,6 +21,7 @@ const verifyStripeSignature = (ctx: Context, next: Next) => {
   } catch (err) {
     // Return if stripe threw an error
     console.error(err.message)
+    console.log(ctx.request)
     ctx.response.status = 401
     return (ctx.response.body = 'Unauthorized. Your IP Address has been logged.')
   }
