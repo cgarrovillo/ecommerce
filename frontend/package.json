@@ -7,7 +7,7 @@
   "author": "Christian Garrovillo <me@christiang.dev>",
   "scripts": {
     "dev": "npx next",
-    "build": "npx next build",
+    "build": "npx next build && npx next export",
     "start": "npx next start",
     "debug": "ANALYZE=true yarn build",
     "deploy:preview": "vercel"

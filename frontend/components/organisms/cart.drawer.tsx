@@ -9,6 +9,12 @@ import CartDrawerContent from '../templates/cart-drawer-content'
 type ToggleEvent = React.KeyboardEvent | React.MouseEvent
 // When the viewport is less than 600px (mobile), the button leads to a full page view of the cart.
 // On desktop, hover shows a side drawer.
+
+/**
+ * Component containing the UI related to use-shopping-cart.
+ * This includes the cart icon button with the badge, & the "drawer" sidebar of the cart.
+ * @returns
+ */
 const CartDrawer: React.FC = () => {
   const { cartCount } = useShoppingCart()
   const router = useRouter()

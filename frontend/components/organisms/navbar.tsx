@@ -5,6 +5,7 @@ import Logo from '../atoms/logo'
 import NavLink from '../atoms/navbar.link'
 import MenuDrawer from './menu.drawer'
 import CartDrawer from './cart.drawer'
+import UserAccountButton from '../atoms/signIn.button'
 
 const NavBar = () => {
   const styles = useStyles()
@@ -32,7 +33,7 @@ const NavBar = () => {
 
             <div>
               <CartDrawer />
-              <NavLink href='/collections'>Sign In</NavLink>
+              <UserAccountButton />
             </div>
           </div>
 
