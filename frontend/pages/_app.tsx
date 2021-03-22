@@ -4,7 +4,6 @@ import { AppProps } from 'next/app'
 // @ts-ignore
 import { CartProvider, DebugCart } from 'use-shopping-cart'
 import NProgress from 'nprogress'
-import { UserProvider } from '@auth0/nextjs-auth0'
 
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -49,15 +48,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <CartProvider mode='checkout-session' stripe={stripe} currency='CAD'>
-        <UserProvider>
-          <ThemeProvider theme={lightTheme}>
-            {/* https://material-ui.com/components/css-baseline/ */}
-            <CssBaseline />
-            {/* <DebugCart /> */}
-            <div id='loading-bar__container'></div>
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </UserProvider>
+        <ThemeProvider theme={lightTheme}>
+          {/* https://material-ui.com/components/css-baseline/ */}
+          <CssBaseline />
+          {/* <DebugCart /> */}
+          <div id='loading-bar__container'></div>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </CartProvider>
     </>
   )

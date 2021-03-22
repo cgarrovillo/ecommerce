@@ -1,20 +1,23 @@
 import React, { useCallback } from 'react'
 import { makeStyles, IconButton } from '@material-ui/core'
-import { useUser } from '@auth0/nextjs-auth0'
 import { BiUser } from 'react-icons/bi'
 
 import NavLink from './navbar.link'
 
+// temp
+const user = false
+const isLoading = false
+const error = false
+
 const UserAccountButton: React.FC<any> = () => {
   const styles = useStyles()
-  const { user, error, isLoading } = useUser()
 
   const goToAccount = useCallback(async (event: React.MouseEvent) => {
     event.preventDefault()
   }, [])
 
   if (isLoading) return <div>Loading...</div>
-  if (error) return <div>{error.message}</div>
+  if (error) return <div>{error}</div>
 
   if (user) {
     return (
