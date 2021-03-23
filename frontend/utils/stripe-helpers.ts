@@ -3,7 +3,11 @@
  * @param unit_amount
  * @param currency
  */
-export function formatAmountForDisplay(unit_amount: number, currency: string): string {
+export function formatAmountForDisplay(unit_amount: number, currency: string = 'CAD'): string {
+  if (!unit_amount) {
+    return ''
+  }
+
   let numberFormat = new Intl.NumberFormat(['en-US'], {
     style: 'currency',
     currency: currency,
@@ -30,7 +34,10 @@ export function formatAmountForDisplayDecimal(unit_amount: number, currency: str
     currencyDisplay: 'symbol',
   })
   const amt = integerToCents(unit_amount)
-  return numberFormat.format(amt)
+  return numberFormat
+    .format(amt)
+    .toString()
+    .replace(/[a-zA-Z]*/i, '')
 }
 
 /**

@@ -32,10 +32,11 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.secondary.main,
     marginTop: '12em',
     marginBottom: '12em',
-    marginLeft: '4em',
-    marginRight: '4em',
+    marginLeft: '6em',
+    marginRight: '6em',
     wordBreak: 'keep-all',
     [theme.breakpoints.down('xs')]: {
+      textAlign: 'center',
       marginLeft: 'auto',
       marginRight: 'auto',
       textShadow: '0px 4px 16px  rgba(0,0,0,0.4)',

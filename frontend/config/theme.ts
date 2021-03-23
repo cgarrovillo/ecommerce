@@ -7,9 +7,6 @@ export const paletteColorsDark = {
   secondary: {
     main: '#1b1b1b',
   },
-  error: '#E44C65',
-  background: '#1b262c',
-  text: '#FFFFFF',
 }
 
 export const paletteColorsLight = {
@@ -21,7 +18,9 @@ export const paletteColorsLight = {
   },
   error: '#E44C65',
   background: '#f9f9f9',
-  text: '#1b1b1b',
+  text: {
+    primary: '#000000',
+  },
 }
 
 const options = (dark: boolean): ThemeOptions => {
@@ -31,6 +30,12 @@ const options = (dark: boolean): ThemeOptions => {
       type: dark ? 'dark' : 'light',
       primary: paletteColors.primary,
       secondary: paletteColors.secondary,
+      background: {
+        default: '#FFFFFF',
+      },
+      text: {
+        primary: '#000000',
+      },
     },
     typography: {
       fontFamily: [
@@ -44,8 +49,26 @@ const options = (dark: boolean): ThemeOptions => {
         'sans-serif',
         'Megona',
       ].join(','),
+      allVariants: {
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+      },
       h2: {
         fontWeight: 700,
+      },
+    },
+    overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          html: {
+            overscrollBehaviorX: 'none',
+            overscrollBehaviorY: 'none',
+          },
+          body: {
+            overscrollBehaviorX: 'none',
+            overscrollBehaviorY: 'none',
+          },
+        },
       },
     },
   }

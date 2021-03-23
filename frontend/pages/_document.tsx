@@ -1,7 +1,7 @@
 /**
  * / _document.tsx
  * Only rendered in the server. Event handlers like onClick do not work.
- * Prevents flickering when client receives the page.
+ * Used in MaterialUI theming to prevent flickering when client sees the page.
  */
 import React from 'react'
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
 }
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
-// it's compatible with server-side generation (SSG).
+// it's compatible with server-side rendering (SSR).
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Render app and page and get the context of the page with collected side effects.
   const sheets = new ServerStyleSheets()

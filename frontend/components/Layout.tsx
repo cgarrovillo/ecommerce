@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
-
-import Header from './organisms/header'
+import NavBar from './organisms/navbar'
 
 type Props = {
   children: ReactNode
@@ -23,8 +22,11 @@ const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
         content='https://nextjs-typescript-react-stripe-js.now.sh/social_card.png'
       />
     </Head>
-    <Header />
-    <div>{children}</div>
+
+    <>
+      <NavBar />
+      <>{children}</>
+    </>
   </>
 )
 
