@@ -38,6 +38,10 @@ const HomePage = ({ collectionData }: InferGetStaticPropsType<typeof getStaticPr
 }
 
 const useStyles = makeStyles(theme => ({
+  bannerContainer: {
+    width: '100vw',
+    height: '300px',
+  },
   bannerText: {
     textShadow: '0px 4px 16px  rgba(0,0,0,0.2)',
     [theme.breakpoints.down('xs')]: {

@@ -24,14 +24,7 @@ const ProductCard: React.FC<Props> = ({ price }) => {
     <Link href={`/catalog/product/${product.id}`}>
       <div className={styles.card}>
         <div className={styles.imgContainer}>
-          <Image
-            src={img}
-            alt={`Picture of ${name}`}
-            width={383}
-            height={601}
-            layout='responsive'
-            quality={100}
-          />
+          <Image src={img} alt={`Picture of ${name}`} width={383} height={601} quality={100} />
           <div className={styles.productInfoContainer}>
             <Typography variant='h6' className={styles.productInfoName}>
               {name}
