@@ -108,4 +108,5 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+// Don't memoize
 export default PageCartItem

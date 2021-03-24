@@ -1,16 +1,14 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Container, Divider, makeStyles, Typography } from '@material-ui/core'
-import { useShoppingCart } from 'use-shopping-cart'
 
 import CartItem from '../molecules/cart-item.card'
 import { formatAmountForDisplayDecimal } from '../../utils/stripe-helpers'
 
-const CartDrawerContent = () => {
+const CartDrawerContent = ({ cartDetails, totalPrice }: any) => {
   const styles = useStyles()
   const router = useRouter()
 
-  const { cartDetails, totalPrice } = useShoppingCart()
   const cart = Object.values(cartDetails)
 
   const goToCart = useCallback((event: React.MouseEvent) => {
@@ -18,6 +16,11 @@ const CartDrawerContent = () => {
 
     router.push('/cart')
   }, [])
+
+  useEffect(() => {
+    console.log('erender')
+  }, [])
+
   return (
     <>
       <Container className={styles.root}>
@@ -87,4 +90,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default CartDrawerContent
+export default React.memo(CartDrawerContent)

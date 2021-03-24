@@ -1,16 +1,13 @@
 import React, { useCallback } from 'react'
 import { makeStyles, IconButton } from '@material-ui/core'
 import { BiUser } from 'react-icons/bi'
+import { useUser } from '@auth0/nextjs-auth0'
 
 import NavLink from './navbar.link'
 
-// temp
-const user = false
-const isLoading = false
-const error = false
-
 const UserAccountButton: React.FC<any> = () => {
   const styles = useStyles()
+  const { user, error, isLoading } = useUser()
 
   const goToAccount = useCallback(async (event: React.MouseEvent) => {
     event.preventDefault()
@@ -53,4 +50,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default UserAccountButton
+export default React.memo(UserAccountButton)

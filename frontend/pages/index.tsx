@@ -27,6 +27,7 @@ const HomePage = ({ collectionData }: InferGetStaticPropsType<typeof getStaticPr
 
   return (
     <Layout>
+      {/* TODO: Optimize the banner, as it is causing major lag. */}
       <Banner>
         <Typography variant='h2' className={styles.bannerText}>
           a brand for the greater good

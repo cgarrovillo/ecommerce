@@ -83,4 +83,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default NavBar
+export default React.memo(NavBar)

@@ -6,13 +6,14 @@
   "version": "0.1.0",
   "author": "Christian Garrovillo <me@christiang.dev>",
   "scripts": {
-    "dev": "npx next",
-    "build": "npx next build",
-    "start": "npx next start",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
     "debug": "ANALYZE=true yarn build",
-    "deploy:preview": "vercel"
+    "deploy:preview": "cd .. && vercel"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.2.0",
     "@material-ui/core": "^4.11.3",
     "@next/bundle-analyzer": "^10.0.9",
     "@stripe/stripe-js": "^1.13.1",
@@ -33,6 +34,7 @@
     "@types/node": "^13.1.2",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^16.9.17",
+    "@vercel/node": "^1.9.1",
     "typescript": "^3.7.4"
   }
 }

@@ -17,10 +17,6 @@ const Layout = ({ children, title = 'thoughtofyouco' }: Props) => (
       <meta name='twitter:site' content='@christiang.dev' />
       <meta name='twitter:title' content='thoughtofyou' />
       <meta name='twitter:description' content='ThoughtofYou' />
-      <meta
-        name='twitter:image'
-        content='https://nextjs-typescript-react-stripe-js.now.sh/social_card.png'
-      />
     </Head>
 
     <>
