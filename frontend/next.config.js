@@ -7,5 +7,5 @@ module.exports = {
   images: {
     domains: ['files.stripe.com'],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
 }

@@ -5,8 +5,6 @@ import { useUser } from '@auth0/nextjs-auth0'
 
 import NavLink from './navbar.link'
 
-// temp
-
 const UserAccountButton: React.FC<any> = () => {
   const styles = useStyles()
   const { user, error, isLoading } = useUser()
