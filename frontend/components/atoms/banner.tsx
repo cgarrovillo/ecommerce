@@ -44,4 +44,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default Banner
+export default React.memo(Banner)

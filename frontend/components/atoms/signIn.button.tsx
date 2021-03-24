@@ -50,4 +50,4 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default UserAccountButton
+export default React.memo(UserAccountButton)

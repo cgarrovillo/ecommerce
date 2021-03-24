@@ -6,8 +6,6 @@ import { useShoppingCart } from 'use-shopping-cart'
 import CartDrawerContent from '../templates/cart-drawer-content'
 
 type ToggleEvent = React.KeyboardEvent | React.MouseEvent
-// When the viewport is less than 600px (mobile), the button leads to a full page view of the cart.
-// On desktop, hover shows a side drawer.
 
 /**
  * Component containing the UI related to use-shopping-cart.
@@ -79,6 +77,10 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: 500,
     flexShrink: 0,
+
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   drawerModal: {
     zIndex: `${theme.zIndex.appBar - 1} !important` as any,
@@ -86,4 +88,4 @@ const useStyles = makeStyles(theme => ({
   drawerList: {},
 }))
 
-export default CartDrawer
+export default React.memo(CartDrawer)
