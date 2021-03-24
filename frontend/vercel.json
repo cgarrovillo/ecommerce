@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/auth/*.ts": {
+    "pages/api/auth/**/*.ts": {
       "memory": 1024,
       "maxDuration": 10
     }
