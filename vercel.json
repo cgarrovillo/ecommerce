@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/auth/[...auth0].js": {
+    "frontend/pages/api/auth/[...auth0].js": {
       "memory": 1024,
       "maxDuration": 10
     }
