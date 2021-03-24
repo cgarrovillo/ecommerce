@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/auth/[...auth0].js": {
+      "memory": 3008,
+      "maxDuration": 10
+    }
+  },
+  "public": false
+}
