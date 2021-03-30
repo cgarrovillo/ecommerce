@@ -551,35 +551,8 @@
           "display_name": {
             "type": "string"
           },
-          "product_fulfillment": {
-            "required": [
-              "id",
-              "name",
-              "data"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "data": {
-                "type": "object"
-              },
-              "note": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
+          "fulfillment": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",
@@ -607,8 +580,8 @@
           "display_name": {
             "type": "string"
           },
-          "product_fulfillment": {
-            "type": "string"
+          "fulfillment": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",

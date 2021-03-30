@@ -23,7 +23,8 @@
     },
     "stripe_id": {
       "type": "string",
-      "regex": "^price_[\\d\\D\\w\\W]{24}$"
+      "regex": "^price_[\\d\\D\\w\\W]{24}$",
+      "unique": true
     },
     "images": {
       "collection": "file",

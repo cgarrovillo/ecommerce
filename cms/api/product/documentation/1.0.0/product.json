@@ -556,8 +556,8 @@
                 "display_name": {
                   "type": "string"
                 },
-                "product_fulfillment": {
-                  "type": "string"
+                "fulfillment": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
