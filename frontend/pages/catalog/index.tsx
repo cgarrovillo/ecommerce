@@ -16,7 +16,6 @@ const Catalog: NextPage = () => {
           brand catalog
         </Typography>
       </Banner>
-      {/* <Collection title='the comfort collection' /> */}
     </Layout>
   )
 }

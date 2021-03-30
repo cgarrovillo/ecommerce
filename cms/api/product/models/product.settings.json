@@ -24,6 +24,21 @@
     "stripe_id": {
       "type": "string",
       "regex": "^price_[\\d\\D\\w\\W]{24}$"
+    },
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "price": {
+      "type": "integer",
+      "min": 100,
+      "default": 0,
+      "required": true
     }
   }
 }
