@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_variants",
+  "info": {
+    "name": "Product-Variant",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "color": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "size": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "material": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "display_name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "product_fulfillment": {
+      "model": "product-fulfillment"
+    }
+  }
+}

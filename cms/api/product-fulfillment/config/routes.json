@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/product-fulfillments",
+      "handler": "product-fulfillment.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/product-fulfillments/count",
+      "handler": "product-fulfillment.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/product-fulfillments/:id",
+      "handler": "product-fulfillment.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/product-fulfillments",
+      "handler": "product-fulfillment.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/product-fulfillments/:id",
+      "handler": "product-fulfillment.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/product-fulfillments/:id",
+      "handler": "product-fulfillment.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "name": "Product",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "product_variants": {
+      "collection": "product-variant"
+    },
+    "stripe_id": {
+      "type": "string",
+      "regex": "^price_[\\d\\D\\w\\W]{24}$"
+    }
+  }
+}

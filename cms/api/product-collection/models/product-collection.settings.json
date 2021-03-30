@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_collections",
+  "info": {
+    "name": "Product-Collection"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "products": {
+      "collection": "product"
+    }
+  }
+}
