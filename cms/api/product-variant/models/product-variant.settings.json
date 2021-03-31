@@ -16,11 +16,6 @@
       "required": true,
       "unique": true
     },
-    "size": {
-      "type": "string",
-      "required": true,
-      "unique": true
-    },
     "material": {
       "type": "string",
       "required": true,
@@ -33,6 +28,18 @@
     },
     "fulfillment": {
       "type": "json"
+    },
+    "size": {
+      "type": "enumeration",
+      "enum": [
+        "xs",
+        "s",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "required": true,
+      "default": "xs"
     }
   }
 }

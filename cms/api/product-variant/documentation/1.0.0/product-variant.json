@@ -531,18 +531,15 @@
         "required": [
           "id",
           "color",
-          "size",
           "material",
-          "display_name"
+          "display_name",
+          "size"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
           "color": {
-            "type": "string"
-          },
-          "size": {
             "type": "string"
           },
           "material": {
@@ -553,6 +550,17 @@
           },
           "fulfillment": {
             "type": "object"
+          },
+          "size": {
+            "type": "string",
+            "default": "xs",
+            "enum": [
+              "xs",
+              "s",
+              "md",
+              "lg",
+              "xl"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -563,15 +571,12 @@
       "NewProduct-variant": {
         "required": [
           "color",
-          "size",
           "material",
-          "display_name"
+          "display_name",
+          "size"
         ],
         "properties": {
           "color": {
-            "type": "string"
-          },
-          "size": {
             "type": "string"
           },
           "material": {
@@ -582,6 +587,17 @@
           },
           "fulfillment": {
             "type": "object"
+          },
+          "size": {
+            "type": "string",
+            "default": "xs",
+            "enum": [
+              "xs",
+              "s",
+              "md",
+              "lg",
+              "xl"
+            ]
           },
           "published_at": {
             "type": "string",

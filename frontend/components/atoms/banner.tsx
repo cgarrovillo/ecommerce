@@ -5,6 +5,7 @@ type Props = {
   children: any
 }
 
+/* TODO: Optimize the banner, as it is causing major lag. */
 const Banner: React.FC<Props> = ({ children, ...props }) => {
   const styles = useStyles()
 

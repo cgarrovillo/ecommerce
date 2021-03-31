@@ -1,20 +1,19 @@
-import type Stripe from 'stripe'
 import React, { useCallback } from 'react'
 import { makeStyles, Box, Button } from '@material-ui/core'
 import { useShoppingCart } from 'use-shopping-cart'
 
 import { CURRENCY } from '../../config/constants'
 
+import type CGCommerce from '../../utils/types/index'
+
 interface Props {
   children: string
-  price: Stripe.Price
+  product: CGCommerce.Product
 }
 
-const BuyButton: React.FC<Props> = ({ children, price }) => {
+const BuyButton: React.FC<Props> = ({ children, product }) => {
   const styles = useStyles()
   const { addItem } = useShoppingCart()
-
-  const product = price?.product as Stripe.Product
 
   const addToBag = useCallback(
     event => {
@@ -24,18 +23,18 @@ const BuyButton: React.FC<Props> = ({ children, price }) => {
 
       const item = {
         name: product.name,
-        descsription: product?.description,
-        id: price.id,
-        sku: price.id,
-        price: price.unit_amount!,
+        descsription: product.description,
+        id: product.stripe_id,
+        sku: product.stripe_id,
+        price: product.unit_amount,
         currency: CURRENCY,
-        image: product?.images[0],
+        image: product.images[0].url,
         product_data: product,
       }
 
       addItem(item)
     },
-    [price]
+    [product]
   )
 
   return (

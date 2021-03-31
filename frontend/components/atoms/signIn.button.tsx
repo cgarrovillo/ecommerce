@@ -13,8 +13,11 @@ const UserAccountButton: React.FC<any> = () => {
     event.preventDefault()
   }, [])
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>{error}</div>
+  if (isLoading) return <NavLink href='/api/auth/login'>Sign In</NavLink>
+  if (error) {
+    console.log(error)
+    return <NavLink href='/api/auth/login'>Sign In</NavLink>
+  }
 
   if (user) {
     return (

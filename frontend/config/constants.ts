@@ -6,7 +6,7 @@ const PRODUCTION = {
 
 const DEVELOPMENT = {
   URLS: {
-    API: 'http://localhost:3001/dev/v1',
+    API: 'http://localhost:3005',
   },
 }
 

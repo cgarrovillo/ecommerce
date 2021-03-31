@@ -35,10 +35,11 @@
       "plugin": "upload",
       "required": false
     },
-    "price": {
+    "description": {
+      "type": "text"
+    },
+    "unit_amount": {
       "type": "integer",
-      "min": 100,
-      "default": 0,
       "required": true
     }
   }

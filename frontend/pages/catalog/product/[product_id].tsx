@@ -1,4 +1,3 @@
-import type Stripe from 'stripe'
 import type { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
 import SwiperCore, { Pagination } from 'swiper'
@@ -12,28 +11,30 @@ import BuyButton from '../../../components/atoms/addToBag.button'
 
 import { Typography, makeStyles, Grid, Container } from '@material-ui/core'
 import { formatAmountForDisplay } from '../../../utils/stripe-helpers'
-import { getAllProducts, getPriceOfProduct } from '../../../utils/api-helpers'
+import { getAllProducts, getProduct } from '../../../utils/api-helpers'
+import { URLS } from '../../../config/constants'
+
+import type CGCommerce from '../../../utils/types/index'
 
 SwiperCore.use([Pagination])
-
-// https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
-export const getStaticProps: GetStaticProps = async context => {
-  const price: Stripe.Price = await getPriceOfProduct(`${context?.params?.product_id}`)
-
-  return { props: { price } }
-}
 
 // Since this is a dynamic route. This is necessary for getStaticProps to actually pre-render the page.
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allProducts: Stripe.Product[] = await getAllProducts()
+  const allProducts: CGCommerce.Product[] = await getAllProducts()
   const paths = allProducts.map(prod => ({
-    // In getStaticProps() above, this is used by the context parameter
+    // This is used by the context parameter in getStaticProps()
     params: { product_id: prod.id },
   }))
 
   // https://nextjs.org/docs/basic-features/data-fetching#fallback-pages
   return { paths, fallback: false }
+}
+
+// https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
+export const getStaticProps: GetStaticProps = async context => {
+  const product: CGCommerce.Product = await getProduct(`${context?.params?.product_id}`)
+  return { props: { product } }
 }
 
 /**
@@ -42,20 +43,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
  * getStaticPROPS is then used to actually fetch more data about that product object, which is then consumed by the page itself.
  * @returns
  */
-const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Product = ({ product }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
 
-  const product = price?.product as Stripe.Product
   const images = [
     // FOR TESTING ONLY
-    product?.images[0],
-    product?.images[0],
-    product?.images[0],
-    product?.images[0],
-    product?.images[0],
+    product.images[0],
+    product.images[0],
+    product.images[0],
+    product.images[0],
+    product.images[0],
   ]
 
-  const unitAmount = formatAmountForDisplay(price?.unit_amount!)
+  const unitAmount = formatAmountForDisplay(product.unit_amount)
 
   const theme = useTheme()
   const styles = useStyles()
@@ -65,7 +65,7 @@ const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const swiperSlideHeight = isMobile ? '100%' : '790'
 
   if (router.isFallback) return <Layout>Loading Product...</Layout>
-  if (router.isFallback && !price) return <Layout>Error</Layout>
+  if (router.isFallback && !product) return <Layout>Error</Layout>
 
   return (
     <Layout>
@@ -90,7 +90,7 @@ const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
                   images.map((imgUrl, index) => (
                     <SwiperSlide key={index} className={styles.swiperSlide}>
                       <Image
-                        src={imgUrl}
+                        src={`${URLS.API}${imgUrl.url}`}
                         layout='responsive'
                         width={swiperSlideWidth}
                         height={swiperSlideHeight}
@@ -118,7 +118,7 @@ const Product = ({ price }: InferGetStaticPropsType<typeof getStaticProps>) => {
               </Grid>
 
               <Grid item xs={12}>
-                <BuyButton price={price}>Add to Bag</BuyButton>
+                <BuyButton product={product}>Add to Bag</BuyButton>
               </Grid>
             </Grid>
           </Grid>

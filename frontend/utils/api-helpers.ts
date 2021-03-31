@@ -1,6 +1,6 @@
-import axios from 'axios'
-
 import type { CartDetails } from 'use-shopping-cart'
+import type CGCommerce from './types'
+import axios from 'axios'
 
 import { URLS } from '../config/constants'
 
@@ -18,15 +18,24 @@ export async function fetchGetJSON(url: string) {
 }
 
 export async function getAllProducts() {
-  return axios.get(`${URLS.API}/products`).then(res => res.data)
+  const data = await axios.get(`${URLS.API}/products`).then(res => res.data)
+
+  if (data) return data
+  else throw new Error(`No Products found.`)
 }
 
-export async function getPriceOfProduct(product_id: string) {
-  return axios.get(`${URLS.API}/prices/${product_id}`).then(res => res.data)
+export async function getProduct(product_id: string) {
+  const data = await axios.get(`${URLS.API}/products?id_eq=${product_id}`).then(res => res.data)
+  if (data) return data[0]
+  else throw new Error(`Product doesn't exist.`)
 }
 
 export async function getCollection(collection_name: string) {
-  return axios.get(`${URLS.API}/collections/${collection_name}`).then(res => res.data)
+  const data: CGCommerce.ProductCollection[] = await axios
+    .get(`${URLS.API}/product-collections?name_eq=${collection_name}`)
+    .then(res => res.data)
+  if (data && data.length > 0) return data[0]
+  else throw new Error(`Collection doesn't exist.`)
 }
 
 export async function createCheckoutSession(cart_details: CartDetails) {

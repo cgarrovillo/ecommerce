@@ -5,7 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = {
   images: {
-    domains: ['files.stripe.com'],
+    domains: ['files.stripe.com', 'localhost'],
   },
   reactStrictMode: false,
 }

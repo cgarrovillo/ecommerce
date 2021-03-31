@@ -551,7 +551,7 @@
               "required": [
                 "id",
                 "name",
-                "price"
+                "unit_amount"
               ],
               "properties": {
                 "id": {
@@ -578,7 +578,10 @@
                     "type": "string"
                   }
                 },
-                "price": {
+                "description": {
+                  "type": "string"
+                },
+                "unit_amount": {
                   "type": "integer"
                 },
                 "published_at": {

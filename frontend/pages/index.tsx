@@ -1,10 +1,8 @@
-import type Stripe from 'stripe'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import React from 'react'
 import { Typography, makeStyles } from '@material-ui/core'
 
 import Layout from '../components/Layout'
-import Banner from '../components/atoms/banner'
 import Collection from '../components/templates/collection.gallery'
 
 import { getCollection } from '../utils/api-helpers'
@@ -12,9 +10,13 @@ import { getCollection } from '../utils/api-helpers'
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export const getStaticProps: GetStaticProps = async () => {
   // Determines the collection to highlight on the HomePage
-  const collectionData: Stripe.Price[] = await getCollection('comfort2021')
+  const collectionData = await getCollection('comfort2021')
 
-  return { props: { collectionData } }
+  return {
+    props: {
+      collectionData,
+    },
+  }
 }
 
 /**
@@ -27,13 +29,7 @@ const HomePage = ({ collectionData }: InferGetStaticPropsType<typeof getStaticPr
 
   return (
     <Layout>
-      {/* TODO: Optimize the banner, as it is causing major lag. */}
-      <Banner>
-        <Typography variant='h2' className={styles.bannerText}>
-          a brand for the greater good
-        </Typography>
-      </Banner>
-      <Collection collectionData={collectionData} title='the comfort collection' />
+      <Collection data={collectionData} />
     </Layout>
   )
 }

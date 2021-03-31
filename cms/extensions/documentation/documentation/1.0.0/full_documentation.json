@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/30/2021 5:23:28 PM"
+    "x-generation-date": "03/30/2021 8:00:53 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -3857,7 +3857,7 @@
               "required": [
                 "id",
                 "name",
-                "price"
+                "unit_amount"
               ],
               "properties": {
                 "id": {
@@ -3884,7 +3884,10 @@
                     "type": "string"
                   }
                 },
-                "price": {
+                "description": {
+                  "type": "string"
+                },
+                "unit_amount": {
                   "type": "integer"
                 },
                 "published_at": {
@@ -3941,18 +3944,15 @@
         "required": [
           "id",
           "color",
-          "size",
           "material",
-          "display_name"
+          "display_name",
+          "size"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
           "color": {
-            "type": "string"
-          },
-          "size": {
             "type": "string"
           },
           "material": {
@@ -3963,6 +3963,17 @@
           },
           "fulfillment": {
             "type": "object"
+          },
+          "size": {
+            "type": "string",
+            "default": "xs",
+            "enum": [
+              "xs",
+              "s",
+              "md",
+              "lg",
+              "xl"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -3973,15 +3984,12 @@
       "NewProduct-variant": {
         "required": [
           "color",
-          "size",
           "material",
-          "display_name"
+          "display_name",
+          "size"
         ],
         "properties": {
           "color": {
-            "type": "string"
-          },
-          "size": {
             "type": "string"
           },
           "material": {
@@ -3992,6 +4000,17 @@
           },
           "fulfillment": {
             "type": "object"
+          },
+          "size": {
+            "type": "string",
+            "default": "xs",
+            "enum": [
+              "xs",
+              "s",
+              "md",
+              "lg",
+              "xl"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -4009,7 +4028,7 @@
         "required": [
           "id",
           "name",
-          "price"
+          "unit_amount"
         ],
         "properties": {
           "id": {
@@ -4027,18 +4046,15 @@
               "required": [
                 "id",
                 "color",
-                "size",
                 "material",
-                "display_name"
+                "display_name",
+                "size"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "color": {
-                  "type": "string"
-                },
-                "size": {
                   "type": "string"
                 },
                 "material": {
@@ -4049,6 +4065,16 @@
                 },
                 "fulfillment": {
                   "type": "object"
+                },
+                "size": {
+                  "type": "string",
+                  "enum": [
+                    "xs",
+                    "s",
+                    "md",
+                    "lg",
+                    "xl"
+                  ]
                 },
                 "published_at": {
                   "type": "string"
@@ -4135,9 +4161,11 @@
               }
             }
           },
-          "price": {
-            "type": "integer",
-            "default": 0
+          "description": {
+            "type": "string"
+          },
+          "unit_amount": {
+            "type": "integer"
           },
           "published_at": {
             "type": "string",
@@ -4148,7 +4176,7 @@
       "NewProduct": {
         "required": [
           "name",
-          "price"
+          "unit_amount"
         ],
         "properties": {
           "name": {
@@ -4166,9 +4194,11 @@
           "stripe_id": {
             "type": "string"
           },
-          "price": {
-            "type": "integer",
-            "default": 0
+          "description": {
+            "type": "string"
+          },
+          "unit_amount": {
+            "type": "integer"
           },
           "published_at": {
             "type": "string",

@@ -518,7 +518,7 @@
         "required": [
           "id",
           "name",
-          "price"
+          "unit_amount"
         ],
         "properties": {
           "id": {
@@ -536,18 +536,15 @@
               "required": [
                 "id",
                 "color",
-                "size",
                 "material",
-                "display_name"
+                "display_name",
+                "size"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "color": {
-                  "type": "string"
-                },
-                "size": {
                   "type": "string"
                 },
                 "material": {
@@ -558,6 +555,16 @@
                 },
                 "fulfillment": {
                   "type": "object"
+                },
+                "size": {
+                  "type": "string",
+                  "enum": [
+                    "xs",
+                    "s",
+                    "md",
+                    "lg",
+                    "xl"
+                  ]
                 },
                 "published_at": {
                   "type": "string"
@@ -644,9 +651,11 @@
               }
             }
           },
-          "price": {
-            "type": "integer",
-            "default": 0
+          "description": {
+            "type": "string"
+          },
+          "unit_amount": {
+            "type": "integer"
           },
           "published_at": {
             "type": "string",
@@ -657,7 +666,7 @@
       "NewProduct": {
         "required": [
           "name",
-          "price"
+          "unit_amount"
         ],
         "properties": {
           "name": {
@@ -675,9 +684,11 @@
           "stripe_id": {
             "type": "string"
           },
-          "price": {
-            "type": "integer",
-            "default": 0
+          "description": {
+            "type": "string"
+          },
+          "unit_amount": {
+            "type": "integer"
           },
           "published_at": {
             "type": "string",
