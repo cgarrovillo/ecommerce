@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { IconButton, makeStyles, useMediaQuery, Badge, Drawer } from '@material-ui/core'
 import { BsBag, BsBagFill } from 'react-icons/bs'
 import { useShoppingCart } from 'use-shopping-cart'
@@ -19,33 +19,32 @@ const CartDrawer: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:600px)')
   const iconSize = isMobile ? '0.85em' : '0.9em'
 
-  const [state, setState] = React.useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
-  const toggleDrawer = (event: ToggleEvent) => {
-    // If called wwhen event was a keyboard event, just return fast
-    if (
-      event &&
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return
-    }
+  const toggleDrawer = useCallback(
+    (event: ToggleEvent) => {
+      // If called wwhen event was a keyboard event, just return fast
+      if (
+        event &&
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      ) {
+        return
+      }
 
-    // Only open if not on mobile
-    setState(!state)
-  }
-
-  useEffect(() => {
-    console.log('parent draw')
-  }, [])
+      // Only open if not on mobile
+      setIsDrawerOpen(!isDrawerOpen)
+    },
+    [isDrawerOpen]
+  )
+  console.log('cart drawer')
 
   return (
     <>
       <IconButton className={styles.button} aria-label='add to bag' onClick={toggleDrawer}>
         <Badge badgeContent={cartCount} color='primary'>
-          {state ? <BsBagFill size={iconSize} /> : <BsBag size={iconSize} />}
-          {/* <BsBag size={iconSize} fill='blue' /> */}
+          {isDrawerOpen ? <BsBagFill size={iconSize} /> : <BsBag size={iconSize} />}
         </Badge>
       </IconButton>
       <Drawer
@@ -54,7 +53,7 @@ const CartDrawer: React.FC = () => {
           modal: styles.drawerModal,
         }}
         anchor='right'
-        open={state}
+        open={isDrawerOpen}
         onClose={toggleDrawer}>
         <div className={styles.offset} />
         <CartDrawerContent cartDetails={cartDetails} totalPrice={totalPrice} />

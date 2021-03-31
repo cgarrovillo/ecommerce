@@ -5,6 +5,8 @@ import { Typography, makeStyles, IconButton, Grid } from '@material-ui/core'
 import { CartEntry, useShoppingCart } from 'use-shopping-cart'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
+import { imgUrl } from '../../utils/api-helpers'
+
 type Props = {
   item: CartEntry
 }
@@ -39,7 +41,7 @@ const PageCartItem: React.FC<Props> = ({ item }) => {
         <Link href={`/catalog/product/${item.product_data.id}`}>
           <>
             <Image
-              src={item.image!}
+              src={imgUrl(item.image!)}
               alt={`a picture of ${item.name}`}
               width={189}
               height={258}

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Typography, makeStyles } from '@material-ui/core'
 
-import { URLS } from '../../config/constants'
+import { imgUrl } from '../../utils/api-helpers'
 import { formatAmountForDisplay } from '../../utils/stripe-helpers'
 
 import type CGCommerce from '../../utils/types'
@@ -26,7 +26,7 @@ const ProductCard: React.FC<Props> = ({ data }) => {
       <div className={styles.card}>
         <div className={styles.imgContainer}>
           <Image
-            src={`${URLS.API}${img.url}`}
+            src={imgUrl(img.url)}
             alt={`Picture of ${name}`}
             width={383}
             height={601}

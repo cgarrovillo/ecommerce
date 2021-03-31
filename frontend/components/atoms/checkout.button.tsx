@@ -17,14 +17,12 @@ const CheckoutButton: React.FC<any> = () => {
 
   const handleCheckout = useCallback(
     async (event: React.MouseEvent) => {
-      console.log('hit')
       event.preventDefault()
       if (!event?.isTrusted || cartCount < 1) {
         return
       }
 
       const stripe = await getStripe()
-      console.log(stripe)
       const session_id = await createCheckoutSession(cartDetails)
 
       stripe?.redirectToCheckout({

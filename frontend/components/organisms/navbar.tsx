@@ -14,15 +14,8 @@ const NavBar = () => {
     <>
       <AppBar className={styles.appBar} color='secondary'>
         <Toolbar className={styles.toolbar}>
-          {/* Mobile Only */}
-          <div className={styles.mobileOnly}>
-            <Logo />
-          </div>
-          {/* End */}
-
-          {/* ============= DESKTOP ============= */}
-          <div className={styles.desktopOnly}>
-            <div>
+          <div className={styles.toolbarInner}>
+            <div className={styles.desktopOnly}>
               <NavLink href='/catalog'>Shop All</NavLink>
               <NavLink href='/collections'>Collections</NavLink>
             </div>
@@ -31,26 +24,21 @@ const NavBar = () => {
               <Logo />
             </div>
 
-            <div>
+            <div className={styles.actionButtons}>
               <CartDrawer />
-              <UserAccountButton />
+              <div className={styles.desktopOnly}>
+                <UserAccountButton />
+              </div>
+
+              <div className={styles.mobileOnly}>
+                <MenuDrawer />
+              </div>
             </div>
           </div>
-
-          {/* ============= END DESKTOP ============= */}
-
-          {/* Mobile Only */}
-          <div className={styles.mobileOnly}>
-            <MenuDrawer />
-
-            <CartDrawer />
-          </div>
-
-          {/* End */}
         </Toolbar>
       </AppBar>
 
-      {/* So nothing is behind the Appbar*/}
+      {/* Offset Appbar So nothing is behind the Appbar*/}
       <div className={styles.offset} />
     </>
   )
@@ -64,6 +52,10 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     justifyContent: 'space-between',
   },
+  actionButtons: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   mobileOnly: {
     [theme.breakpoints.up('sm')]: {
       display: 'none',
@@ -73,6 +65,8 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
+  },
+  toolbarInner: {
     flex: 1,
     display: 'flex',
     justifyContent: 'space-between',

@@ -1,6 +1,6 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import React from 'react'
-import { Typography, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import Layout from '../components/Layout'
 import Collection from '../components/templates/collection.gallery'

@@ -54,3 +54,7 @@ export async function createCheckoutSession(cart_details: CartDetails) {
     data: cart_items,
   }).then(res => res.data)
 }
+
+export function imgUrl(imgUrlPath: string) {
+  return `${URLS.API}${imgUrlPath}`
+}
