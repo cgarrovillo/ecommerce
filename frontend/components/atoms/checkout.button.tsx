@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import { makeStyles, Button } from '@material-ui/core'
-import { useShoppingCart } from 'use-shopping-cart'
 
 import { createCheckoutSession } from '../../utils/api-helpers'
 import getStripe from '../../utils/get-stripejs'
@@ -41,7 +40,7 @@ const CheckoutButton: React.FC<any> = () => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   link: {
     width: '100%',
     display: 'block',

@@ -7,7 +7,7 @@ declare namespace CGCommerce {
     fulfillment: object
   }
 
-  interface Product extends StrapiObject {
+  export interface Product extends StrapiObject {
     name: string
     display_name: string
     stripe_id: string

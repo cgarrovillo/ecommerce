@@ -1,4 +1,3 @@
-import type { CartDetails } from 'use-shopping-cart'
 import type CGCommerce from './types'
 import axios from 'axios'
 

@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { Button, Container, Divider, makeStyles, Typography } from '@material-ui/core'
+import React, { useCallback, useEffect } from "react"
+import { useRouter } from "next/router"
+import { Button, Container, Divider, makeStyles, Typography } from "@material-ui/core"
 
-import CartItem from '../molecules/cart-item.card'
-import { formatAmountForDisplayDecimal } from '../../utils/stripe-helpers'
+import CartItem from "../molecules/cart-item.card"
+import { formatAmountForDisplayDecimal } from "../../utils/stripe-helpers"
 
 const CartDrawerContent = ({ cartDetails, totalPrice }: any) => {
   const styles = useStyles()
@@ -14,11 +14,11 @@ const CartDrawerContent = ({ cartDetails, totalPrice }: any) => {
   const goToCart = useCallback((event: React.MouseEvent) => {
     event.preventDefault()
 
-    router.push('/cart')
+    router.push("/cart")
   }, [])
 
   useEffect(() => {
-    console.log('erender')
+    console.log("card drawer content")
   }, [])
 
   return (
@@ -27,17 +27,15 @@ const CartDrawerContent = ({ cartDetails, totalPrice }: any) => {
         <div className={styles.cartItemsContainer}>
           {cart.map((item: any, i: number) => (
             <div key={item.id}>
-              <CartItem item={item} simple />
+              <CartItem item={item} />
               {i > 1 && <Divider />}
             </div>
           ))}
         </div>
         <div>
           <div className={styles.subtotalContainer}>
-            <Typography component='span'>Subtotal</Typography>
-            <Typography component='span'>
-              {formatAmountForDisplayDecimal(totalPrice, 'CAD')}
-            </Typography>
+            <Typography component="span">Subtotal</Typography>
+            <Typography component="span">{formatAmountForDisplayDecimal(totalPrice, "CAD")}</Typography>
           </div>
           <div className={styles.ctaContainer}>
             <Button className={styles.link} onClick={goToCart}>
@@ -50,42 +48,42 @@ const CartDrawerContent = ({ cartDetails, totalPrice }: any) => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100%',
-    padding: '1em 1.5em 2em 1.5em',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    height: "100%",
+    padding: "1em 1.5em 2em 1.5em",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   cartItemsContainer: {
-    height: '100%',
+    height: "100%",
   },
   link: {
-    display: 'block',
-    width: 'calc(100% - 2em)',
-    margin: '0 1em',
-    padding: '0.5em 4em',
+    display: "block",
+    width: "calc(100% - 2em)",
+    margin: "0 1em",
+    padding: "0.5em 4em",
     borderRadius: 0,
 
-    fontSize: '1.3rem',
-    textTransform: 'none',
+    fontSize: "1.3rem",
+    textTransform: "none",
 
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.secondary.main,
 
-    '&:hover': {
+    "&:hover": {
       color: theme.palette.primary.main,
       backgroundColor: theme.palette.secondary.main,
     },
   },
   subtotalContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: '1em 0',
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "1em 0",
   },
   ctaContainer: {
-    position: 'relative',
+    position: "relative",
     bottom: 0,
   },
 }))

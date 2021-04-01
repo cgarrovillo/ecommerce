@@ -2,48 +2,40 @@ import React, { useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Typography, makeStyles, IconButton } from '@material-ui/core'
-import { CartEntry, useShoppingCart } from 'use-shopping-cart'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
 import { imgUrl } from '../../utils/api-helpers'
+import { useShoppingBag } from '../../utils/usb/BagContext'
+import type { CartItem } from '../../utils/usb/types'
 
-type Props = {
-  item: CartEntry
-  simple?: boolean
-}
-
-/**
- * Displays a Product Card. Uses the first image from the Stripe.Product.Images[] as the display image.
- * @param price The Stripe.Price containing a Stripe.Product to display
- */
-const CartItem: React.FC<Props> = ({ item, simple = false }) => {
-  const { incrementItem, decrementItem } = useShoppingCart()
+const CartItemCard: React.FC<{ item: CartItem }> = ({ item }) => {
+  const { increment, decrement } = useShoppingBag()
   const styles = useStyles()
 
-  const increment = useCallback((event: React.MouseEvent) => {
+  const incrementItem = useCallback((event: React.MouseEvent) => {
     event.preventDefault()
     if (!event.isTrusted) {
       return
     }
-    incrementItem(item.sku)
+    increment(item)
   }, [])
 
-  const decrement = useCallback((event: React.MouseEvent) => {
+  const decrementItem = useCallback((event: React.MouseEvent) => {
     event.preventDefault()
     if (!event.isTrusted) {
       return
     }
-    if (item.quantity !== 1) decrementItem(item.sku)
+    if (item.quantity !== 1) decrement(item)
   }, [])
 
   return (
-    <Link href={`/catalog/product/${item.product_data.id}`}>
+    <Link href={`/catalog/product/${item.data.id}`}>
       <div className={styles.container}>
         <div>
           <div>
             <Image
-              src={imgUrl(item.image!)}
-              alt={`a picture of ${item.name}`}
+              src={imgUrl(item.data.images[0].url)}
+              alt={`a picture of ${item.data.name}`}
               width={189}
               height={258}
               quality={100}
@@ -52,27 +44,9 @@ const CartItem: React.FC<Props> = ({ item, simple = false }) => {
         </div>
         <div>
           <div className={styles.detailsContainer}>
-            <Typography variant='h5'>{item.name}</Typography>
-            <Typography variant='body2'>{item.formattedValue}</Typography>
+            <Typography variant='h5'>{item.data.name}</Typography>
+            <Typography variant='body2'>{item.data.unit_amount}</Typography>
             <Typography variant='body2'>Qty. {item.quantity}</Typography>
-            <div className={simple ? styles.hidden : ''}>
-              <div>
-                <IconButton
-                  color='primary'
-                  size='small'
-                  className={styles.iconButton}
-                  onClick={decrement}>
-                  <AiOutlineMinus />
-                </IconButton>
-                <IconButton
-                  color='primary'
-                  size='small'
-                  className={styles.iconButton}
-                  onClick={increment}>
-                  <AiOutlinePlus />
-                </IconButton>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -109,4 +83,4 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default React.memo(CartItem)
+export default React.memo(CartItemCard)

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { makeStyles, Box, Button } from '@material-ui/core'
-import { useShoppingCart } from 'use-shopping-cart'
 
+import { useShoppingBag } from '../../utils/usb/BagContext'
 import type CGCommerce from '../../utils/types/index'
 
 interface Props {
@@ -11,26 +11,20 @@ interface Props {
 
 const BuyButton: React.FC<Props> = ({ children, product }) => {
   const styles = useStyles()
-  const { addItem } = useShoppingCart()
+  const { addProduct } = useShoppingBag()
 
   const addToBag = useCallback(
-    event => {
+    (event) => {
       if (!event?.isTrusted) {
         return
       }
 
-      const item = {
-        name: product.name,
-        descsription: product.description,
+      addProduct({
         id: product.stripe_id,
-        sku: product.stripe_id,
-        price: product.unit_amount,
-        currency: 'cad',
-        image: product.images[0].url,
-        product_data: product,
-      }
-
-      addItem(item)
+        unit_amount: product.unit_amount,
+        quantity: 1,
+        data: product,
+      })
     },
     [product]
   )
@@ -44,7 +38,7 @@ const BuyButton: React.FC<Props> = ({ children, product }) => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     [theme.breakpoints.down('xs')]: {
       width: '100%',

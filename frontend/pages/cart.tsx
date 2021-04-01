@@ -1,17 +1,18 @@
 import React from 'react'
 import { Container, Grid, makeStyles, Typography, Divider } from '@material-ui/core'
-import { useShoppingCart } from 'use-shopping-cart'
 
 import Layout from '../components/Layout'
 import PageCartItem from '../components/molecules/page-cart-item.card'
 import { formatAmountForDisplayDecimal } from '../utils/stripe-helpers'
 import CheckoutButton from '../components/atoms/checkout.button'
 
+import { useShoppingBag } from '../utils/usb/BagContext'
+
 const CartPage = () => {
   const styles = useStyles()
 
-  const { cartDetails, totalPrice, cartCount } = useShoppingCart()
-  const cart = Object.values(cartDetails)
+  const { itemCount, cartItems, total } = useShoppingBag()
+  const cart = Object.values(cartItems)
 
   return (
     <Layout>
@@ -22,7 +23,7 @@ const CartPage = () => {
               My bag
             </Typography>
             <Typography variant='body1' component='span'>
-              {cartCount > 1 ? `${cartCount} items` : `${cartCount} item`}
+              {itemCount > 1 ? `${itemCount} items` : `${itemCount} item`}
             </Typography>
           </div>
           <Divider />
@@ -42,9 +43,7 @@ const CartPage = () => {
             <div>
               <div className={styles.subtotalContainer}>
                 <Typography component='span'>Subtotal</Typography>
-                <Typography component='span'>
-                  {formatAmountForDisplayDecimal(totalPrice, 'CAD')}
-                </Typography>
+                <Typography component='span'>{formatAmountForDisplayDecimal(total, 'CAD')}</Typography>
               </div>
               <div className={styles.ctaContainer}>
                 <CheckoutButton />
@@ -57,7 +56,7 @@ const CartPage = () => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: '1.5em 3em',
 

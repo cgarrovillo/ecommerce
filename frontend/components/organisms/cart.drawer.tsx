@@ -1,49 +1,44 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import { IconButton, makeStyles, useMediaQuery, Badge, Drawer } from '@material-ui/core'
 import { BsBag, BsBagFill } from 'react-icons/bs'
-import { useShoppingCart } from 'use-shopping-cart'
 
+import { useShoppingBag } from '../../utils/usb/BagContext'
 import CartDrawerContent from '../templates/cart-drawer-content'
 
 type ToggleEvent = React.KeyboardEvent | React.MouseEvent
 
 /**
- * Component containing the UI related to use-shopping-cart.
+ * Component containing the UI related to the shopping bag
  * This includes the cart icon button with the badge, & the "drawer" sidebar of the cart.
  * @returns
  */
 const CartDrawer: React.FC = () => {
-  const { cartCount, cartDetails, totalPrice } = useShoppingCart()
+  const { cartItems, itemCount, total } = useShoppingBag()
   const styles = useStyles()
 
+  // const isMobile = false
   const isMobile = useMediaQuery('(max-width:600px)')
   const iconSize = isMobile ? '0.85em' : '0.9em'
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
-  const toggleDrawer = useCallback(
-    (event: ToggleEvent) => {
-      // If called wwhen event was a keyboard event, just return fast
-      if (
-        event &&
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return
-      }
+  const toggleDrawer = (event: ToggleEvent) => {
+    // If called wwhen event was a keyboard event, just return fast
+    if (
+      event &&
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return
+    }
 
-      // Only open if not on mobile
-      setIsDrawerOpen(!isDrawerOpen)
-    },
-    [isDrawerOpen]
-  )
-  console.log('cart drawer')
+    setIsDrawerOpen(!isDrawerOpen)
+  }
 
   return (
     <>
       <IconButton className={styles.button} aria-label='add to bag' onClick={toggleDrawer}>
-        <Badge badgeContent={cartCount} color='primary'>
+        <Badge color='primary' badgeContent={itemCount}>
           {isDrawerOpen ? <BsBagFill size={iconSize} /> : <BsBag size={iconSize} />}
         </Badge>
       </IconButton>
@@ -54,15 +49,16 @@ const CartDrawer: React.FC = () => {
         }}
         anchor='right'
         open={isDrawerOpen}
-        onClose={toggleDrawer}>
+        onClose={toggleDrawer}
+      >
         <div className={styles.offset} />
-        <CartDrawerContent cartDetails={cartDetails} totalPrice={totalPrice} />
+        <CartDrawerContent cartDetails={cartItems} totalPrice={total} />
       </Drawer>
     </>
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: 'inline-block',
     cursor: 'pointer',

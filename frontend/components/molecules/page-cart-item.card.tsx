@@ -2,47 +2,45 @@ import React, { useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Typography, makeStyles, IconButton, Grid } from '@material-ui/core'
-import { CartEntry, useShoppingCart } from 'use-shopping-cart'
+
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
 import { imgUrl } from '../../utils/api-helpers'
-
-type Props = {
-  item: CartEntry
-}
+import { useShoppingBag } from '../../utils/usb/BagContext'
+import type { CartItem } from '../../utils/usb/types'
 
 /**
  * Displays a Product Card. Uses the first image from the Stripe.Product.Images[] as the display image.
  * @param price The Stripe.Price containing a Stripe.Product to display
  */
-const PageCartItem: React.FC<Props> = ({ item }) => {
-  const { incrementItem, decrementItem } = useShoppingCart()
+const PageCartItem: React.FC<{ item: CartItem }> = ({ item }) => {
+  const { increment, decrement } = useShoppingBag()
   const styles = useStyles()
 
-  const increment = useCallback((event: React.MouseEvent) => {
+  const incrementItem = useCallback((event: React.MouseEvent) => {
     event.preventDefault()
     if (!event.isTrusted) {
       return
     }
-    incrementItem(item.sku)
+    increment(item)
   }, [])
 
-  const decrement = useCallback((event: React.MouseEvent) => {
+  const decrementItem = useCallback((event: React.MouseEvent) => {
     event.preventDefault()
     if (!event.isTrusted) {
       return
     }
-    decrementItem(item.sku)
+    decrement(item)
   }, [])
 
   return (
     <div className={styles.container}>
       <div className={styles.link}>
-        <Link href={`/catalog/product/${item.product_data.id}`}>
+        <Link href={`/catalog/product/${item.data.id}`}>
           <>
             <Image
-              src={imgUrl(item.image!)}
-              alt={`a picture of ${item.name}`}
+              src={imgUrl(item.data.images[0].url)}
+              alt={`a picture of ${item.data.name}`}
               width={189}
               height={258}
               quality={100}
@@ -53,29 +51,21 @@ const PageCartItem: React.FC<Props> = ({ item }) => {
       <div className={styles.detailsContainer}>
         <Grid container alignItems='center'>
           <Grid item xs={12} md={4}>
-            <Typography variant='h5'>{item.name}</Typography>
-            <Typography variant='body2'>{item.formattedValue}</Typography>
+            <Typography variant='h5'>{item.data.name}</Typography>
+            <Typography variant='body2'>{item.data.unit_amount}</Typography>
           </Grid>
           <Grid item xs={12} md={4}>
             No size
           </Grid>
           <Grid item xs={12} md={4}>
             <div>
-              <IconButton
-                color='primary'
-                size='small'
-                className={styles.iconButton}
-                onClick={decrement}>
+              <IconButton color='primary' size='small' className={styles.iconButton} onClick={decrementItem}>
                 <AiOutlineMinus />
               </IconButton>
               <Typography variant='body2' component='span'>
                 {item.quantity}
               </Typography>
-              <IconButton
-                color='primary'
-                size='small'
-                className={styles.iconButton}
-                onClick={increment}>
+              <IconButton color='primary' size='small' className={styles.iconButton} onClick={incrementItem}>
                 <AiOutlinePlus />
               </IconButton>
             </div>

@@ -1,6 +1,6 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
+// import { makeStyles } from '@material-ui/core'
 
 import Layout from '../components/Layout'
 import Collection from '../components/templates/collection.gallery'
@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
  * @returns
  */
 const HomePage = ({ collectionData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const styles = useStyles()
+  // const styles = useStyles()
 
   return (
     <Layout>
@@ -34,17 +34,17 @@ const HomePage = ({ collectionData }: InferGetStaticPropsType<typeof getStaticPr
   )
 }
 
-const useStyles = makeStyles(theme => ({
-  bannerContainer: {
-    width: '100vw',
-    height: '300px',
-  },
-  bannerText: {
-    textShadow: '0px 4px 16px  rgba(0,0,0,0.2)',
-    [theme.breakpoints.down('xs')]: {
-      textShadow: '0px 4px 16px  rgba(0,0,0,0.4)',
-    },
-  },
-}))
+// const useStyles = makeStyles(theme => ({
+//   bannerContainer: {
+//     width: '100vw',
+//     height: '300px',
+//   },
+//   bannerText: {
+//     textShadow: '0px 4px 16px  rgba(0,0,0,0.2)',
+//     [theme.breakpoints.down('xs')]: {
+//       textShadow: '0px 4px 16px  rgba(0,0,0,0.4)',
+//     },
+//   },
+// }))
 
 export default HomePage

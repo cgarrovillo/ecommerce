@@ -1,25 +1,18 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { AppProps } from 'next/app'
-// @ts-ignore
-import { CartProvider, DebugCart } from 'use-shopping-cart'
-import NProgress from 'nprogress'
-import { UserProvider } from '@auth0/nextjs-auth0'
+import { useEffect } from "react"
+import { useRouter } from "next/router"
+import { AppProps } from "next/app"
+import { UserProvider } from "@auth0/nextjs-auth0"
 
-import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { lightTheme } from '../config/theme'
+import { ThemeProvider } from "@material-ui/core/styles"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import { lightTheme } from "../config/theme"
 
-import 'swiper/swiper-bundle.min.css'
-import '../public/nprogress.css'
-import '../public/typography.css'
+import { routeChangeStart, routeChangeComplete } from "../utils/nprogress"
+import BagContextProvider from "../utils/usb/BagContext"
 
-import getStripe from '../utils/get-stripejs'
-
-const stripe = getStripe()
-NProgress.configure({
-  parent: '#loading-bar__container',
-})
+import "swiper/swiper-bundle.min.css"
+import "../public/nprogress.css"
+import "../public/typography.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -27,40 +20,33 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     // MaterialUI Theming
     // As soon as the app is ready, allow client to take over styling.
-    const jssStyles = document.querySelector('#jss-server-side')
+    const jssStyles = document.querySelector("#jss-server-side")
     if (jssStyles) {
       jssStyles.parentElement?.removeChild(jssStyles)
     }
 
-    // Loading indicators
-    let routeChangeStart = () => NProgress.start()
-    let routeChangeComplete = () => NProgress.done()
-
-    router.events.on('routeChangeStart', routeChangeStart)
-    router.events.on('routeChangeComplete', routeChangeComplete)
-    router.events.on('routeChangeError', routeChangeComplete)
+    router.events.on("routeChangeStart", routeChangeStart)
+    router.events.on("routeChangeComplete", routeChangeComplete)
+    router.events.on("routeChangeError", routeChangeComplete)
     return () => {
-      router.events.off('routeChangeStart', routeChangeStart)
-      router.events.off('routeChangeComplete', routeChangeComplete)
-      router.events.off('routeChangeError', routeChangeComplete)
+      router.events.off("routeChangeStart", routeChangeStart)
+      router.events.off("routeChangeComplete", routeChangeComplete)
+      router.events.off("routeChangeError", routeChangeComplete)
     }
   }, [])
 
   return (
-    <>
-      <CartProvider mode='checkout-session' stripe={stripe} currency='CAD'>
-        <UserProvider>
-          <ThemeProvider theme={lightTheme}>
-            {/* https://material-ui.com/components/css-baseline/ */}
-            <CssBaseline />
-            {/* <DebugCart /> */}
-            <div id='loading-bar__container'></div>
+    <BagContextProvider>
+      <UserProvider>
+        <ThemeProvider theme={lightTheme}>
+          {/* https://material-ui.com/components/css-baseline/ */}
+          <CssBaseline />
+          <div id="loading-bar__container"></div>
 
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </UserProvider>
-      </CartProvider>
-    </>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </UserProvider>
+    </BagContextProvider>
   )
 }
 
