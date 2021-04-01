@@ -2,8 +2,6 @@ import React, { useCallback } from 'react'
 import { makeStyles, Box, Button } from '@material-ui/core'
 import { useShoppingCart } from 'use-shopping-cart'
 
-import { CURRENCY } from '../../config/constants'
-
 import type CGCommerce from '../../utils/types/index'
 
 interface Props {
@@ -27,7 +25,7 @@ const BuyButton: React.FC<Props> = ({ children, product }) => {
         id: product.stripe_id,
         sku: product.stripe_id,
         price: product.unit_amount,
-        currency: CURRENCY,
+        currency: 'cad',
         image: product.images[0].url,
         product_data: product,
       }

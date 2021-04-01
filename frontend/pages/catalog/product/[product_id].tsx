@@ -11,8 +11,7 @@ import BuyButton from '../../../components/atoms/addToBag.button'
 
 import { Typography, makeStyles, Grid, Container } from '@material-ui/core'
 import { formatAmountForDisplay } from '../../../utils/stripe-helpers'
-import { getAllProducts, getProduct } from '../../../utils/api-helpers'
-import { URLS } from '../../../config/constants'
+import { getAllProducts, getProduct, imgUrl } from '../../../utils/api-helpers'
 
 import type CGCommerce from '../../../utils/types/index'
 
@@ -87,10 +86,10 @@ const Product = ({ product }: InferGetStaticPropsType<typeof getStaticProps>) =>
                 nested={!isMobile}
                 preloadImages={false}>
                 {product.images.length > 0 &&
-                  images.map((imgUrl, index) => (
+                  images.map((img, index) => (
                     <SwiperSlide key={index} className={styles.swiperSlide}>
                       <Image
-                        src={`${URLS.API}${imgUrl.url}`}
+                        src={imgUrl(img.url)}
                         layout='responsive'
                         width={swiperSlideWidth}
                         height={swiperSlideHeight}

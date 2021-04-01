@@ -2,8 +2,7 @@ import type { CartDetails } from 'use-shopping-cart'
 import type CGCommerce from './types'
 import axios from 'axios'
 
-import { URLS } from '../config/constants'
-
+const API = process.env['NEXT_PUBLIC_API_URL']
 /**
  * Helper function to GET data from a NextJS API Route
  * @param url
@@ -18,21 +17,21 @@ export async function fetchGetJSON(url: string) {
 }
 
 export async function getAllProducts() {
-  const data = await axios.get(`${URLS.API}/products`).then(res => res.data)
+  const data = await axios.get(`${API}/products`).then(res => res.data)
 
   if (data) return data
   else throw new Error(`No Products found.`)
 }
 
 export async function getProduct(product_id: string) {
-  const data = await axios.get(`${URLS.API}/products?id_eq=${product_id}`).then(res => res.data)
+  const data = await axios.get(`${API}/products?id_eq=${product_id}`).then(res => res.data)
   if (data) return data[0]
   else throw new Error(`Product doesn't exist.`)
 }
 
 export async function getCollection(collection_name: string) {
   const data: CGCommerce.ProductCollection[] = await axios
-    .get(`${URLS.API}/product-collections?name_eq=${collection_name}`)
+    .get(`${API}/product-collections?name_eq=${collection_name}`)
     .then(res => res.data)
   if (data && data.length > 0) return data[0]
   else throw new Error(`Collection doesn't exist.`)
@@ -50,11 +49,11 @@ export async function createCheckoutSession(cart_details: CartDetails) {
 
   return axios({
     method: 'POST',
-    url: `${URLS.API}/checkout`,
+    url: `${API}/checkout`,
     data: cart_items,
   }).then(res => res.data)
 }
 
 export function imgUrl(imgUrlPath: string) {
-  return `${URLS.API}${imgUrlPath}`
+  return `${API}${imgUrlPath}`
 }

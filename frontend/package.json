@@ -6,11 +6,11 @@
   "version": "0.1.0",
   "author": "Christian Garrovillo <me@christiang.dev>",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "debug": "ANALYZE=true yarn build",
-    "deploy:preview": "cd .. && vercel"
+    "dev": "doppler run -- next",
+    "build": "doppler run -- next build",
+    "start": "doppler run -- next start",
+    "debug": "ANALYZE=true doppler run -- yarn build",
+    "deploy:preview": "doppler run --command=\"cd .. && vercel\" "
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.2.0",
