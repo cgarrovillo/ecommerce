@@ -2,9 +2,12 @@ import React, { createContext, useReducer, useContext } from 'react'
 import { CartReducer, sumItems } from './BagReducer'
 import { CartItem, InitialState, ContextValues } from './types'
 
-const BagContext = createContext<ContextValues>(null!)
+const getFromStorage = () => {
+  return localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')!) : []
+}
 
-const lStorage = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')!) : []
+const BagContext = createContext<ContextValues>(null!)
+const lStorage = typeof window !== 'undefined' && getFromStorage()
 const initialState: InitialState = { cartItems: lStorage, ...sumItems(lStorage) }
 
 const BagContextProvider = ({ children }: any) => {

@@ -22,8 +22,8 @@ export type Action = ActionWithPayload | ActionWithNoPayload
 
 export interface InitialState {
   cartItems: CartItem[]
-  itemCount: number
-  total: number
+  itemCount?: number
+  total?: number
 }
 
 /* State management functions */

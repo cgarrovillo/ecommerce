@@ -23,7 +23,7 @@ const CartPage = () => {
               My bag
             </Typography>
             <Typography variant='body1' component='span'>
-              {itemCount > 1 ? `${itemCount} items` : `${itemCount} item`}
+              {itemCount && (itemCount > 1 ? `${itemCount} items` : `${itemCount} item`)}
             </Typography>
           </div>
           <Divider />
@@ -43,7 +43,9 @@ const CartPage = () => {
             <div>
               <div className={styles.subtotalContainer}>
                 <Typography component='span'>Subtotal</Typography>
-                <Typography component='span'>{formatAmountForDisplayDecimal(total, 'CAD')}</Typography>
+                {total && (
+                  <Typography component='span'>{formatAmountForDisplayDecimal(total, 'CAD')}</Typography>
+                )}
               </div>
               <div className={styles.ctaContainer}>
                 <CheckoutButton />

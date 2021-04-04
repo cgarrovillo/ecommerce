@@ -28,6 +28,8 @@ export function formatAmountForDisplay(unit_amount: number, currency: string = '
  * @param currency
  */
 export function formatAmountForDisplayDecimal(unit_amount: number, currency: string): string {
+  if (!unit_amount) return '0'
+
   let numberFormat = new Intl.NumberFormat(['en-US'], {
     style: 'currency',
     currency: currency,
