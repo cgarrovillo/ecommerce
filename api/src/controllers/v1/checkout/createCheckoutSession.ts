@@ -1,7 +1,8 @@
 import { Context } from 'koa'
+
+import { CartItem } from '../../../types/cart'
 import { stripe } from '../../../util/stripe'
 import { CONSTANTS } from '../../../util/constants'
-import type { CartItem, Checkout } from '../../../types/usc'
 
 import processCartItems from '../../../helpers/stripe/processCartItems'
 
