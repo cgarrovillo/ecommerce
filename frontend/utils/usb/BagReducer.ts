@@ -5,8 +5,8 @@ const setLocalStorage = (cartItems: CartItem[]) => {
     localStorage.setItem('cart', JSON.stringify(cartItems.length > 0 ? cartItems : []))
 }
 export const sumItems = (cartItems: CartItem[]) => {
-  let itemCount
-  let total
+  let itemCount = 0
+  let total = 0
   if (typeof window !== 'undefined') {
     setLocalStorage(cartItems)
     itemCount = cartItems.reduce((total, product) => total + product.quantity, 0)
@@ -36,15 +36,18 @@ export const CartReducer = (state: InitialState, action: Action) => {
         ...sumItems(state.cartItems.filter((item) => item.id !== action.payload?.id)),
         cartItems: [...state.cartItems.filter((item) => item.id !== action.payload?.id)],
       }
-    case 'INCREASE':
+    case 'INCREMENT':
       state.cartItems[state.cartItems.findIndex((item) => item.id === action.payload?.id)].quantity++
       return {
         ...state,
         ...sumItems(state.cartItems),
         cartItems: [...state.cartItems],
       }
-    case 'DECREASE':
-      state.cartItems[state.cartItems.findIndex((item) => item.id === action.payload?.id)].quantity--
+    case 'DECREMENT':
+      const item = state.cartItems[state.cartItems.findIndex((item) => item.id === action.payload?.id)]
+
+      if (item.quantity > 1) item.quantity--
+
       return {
         ...state,
         ...sumItems(state.cartItems),

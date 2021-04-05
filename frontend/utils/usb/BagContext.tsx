@@ -18,6 +18,8 @@ const BagContextProvider = ({ children }: any) => {
   }
 
   const decrement = (payload: CartItem) => {
+    if (payload.quantity === 1) return removeProduct(payload)
+
     dispatch({ type: 'DECREMENT', payload })
   }
 
@@ -34,15 +36,14 @@ const BagContextProvider = ({ children }: any) => {
   }
 
   const handleCheckout = () => {
-    console.log('CHECKOUT', state)
     dispatch({ type: 'CHECKOUT' })
   }
 
   const contextValues = {
-    removeProduct,
-    addProduct,
     increment,
     decrement,
+    addProduct,
+    removeProduct,
     clearCart,
     handleCheckout,
     ...state,

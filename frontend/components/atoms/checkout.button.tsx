@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { makeStyles, Button } from '@material-ui/core'
 
+import { useShoppingBag } from '../../utils/usb/BagContext'
 import { createCheckoutSession } from '../../utils/api-helpers'
 import getStripe from '../../utils/get-stripejs'
 
@@ -12,31 +13,29 @@ import getStripe from '../../utils/get-stripejs'
  */
 const CheckoutButton: React.FC<any> = () => {
   const styles = useStyles()
-  const { cartDetails, cartCount } = useShoppingCart()
+  const { cartItems, itemCount } = useShoppingBag()
 
   const handleCheckout = useCallback(
     async (event: React.MouseEvent) => {
       event.preventDefault()
-      if (!event?.isTrusted || cartCount < 1) {
+      if (!event?.isTrusted || !itemCount || itemCount < 1) {
         return
       }
 
       const stripe = await getStripe()
-      const session_id = await createCheckoutSession(cartDetails)
+      const session_id = await createCheckoutSession(cartItems)
 
       stripe?.redirectToCheckout({
         sessionId: session_id,
       })
     },
-    [cartDetails]
+    [cartItems]
   )
 
   return (
-    <div>
-      <Button className={styles.link} onClick={handleCheckout}>
-        Checkout
-      </Button>
-    </div>
+    <Button className={styles.link} onClick={handleCheckout}>
+      Checkout
+    </Button>
   )
 }
 

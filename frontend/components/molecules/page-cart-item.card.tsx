@@ -2,9 +2,9 @@ import React, { useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Typography, makeStyles, IconButton, Grid } from '@material-ui/core'
-
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
+import { formatAmountForDisplayDecimal } from '../../utils/stripe-helpers'
 import { imgUrl } from '../../utils/api-helpers'
 import { useShoppingBag } from '../../utils/usb/BagContext'
 import type { CartItem } from '../../utils/usb/types'
@@ -52,7 +52,7 @@ const PageCartItem: React.FC<{ item: CartItem }> = ({ item }) => {
         <Grid container alignItems='center'>
           <Grid item xs={12} md={4}>
             <Typography variant='h5'>{item.data.name}</Typography>
-            <Typography variant='body2'>{item.data.unit_amount}</Typography>
+            <Typography variant='body2'>{formatAmountForDisplayDecimal(item.data.unit_amount)}</Typography>
           </Grid>
           <Grid item xs={12} md={4}>
             No size

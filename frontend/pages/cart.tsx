@@ -1,17 +1,19 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import { Container, Grid, makeStyles, Typography, Divider } from '@material-ui/core'
 
+import CartItemCountWithText from '../components/atoms/cartItemCount.text'
 import Layout from '../components/Layout'
 import PageCartItem from '../components/molecules/page-cart-item.card'
-import { formatAmountForDisplayDecimal } from '../utils/stripe-helpers'
 import CheckoutButton from '../components/atoms/checkout.button'
 
+import { formatAmountForDisplayDecimal } from '../utils/stripe-helpers'
 import { useShoppingBag } from '../utils/usb/BagContext'
 
 const CartPage = () => {
   const styles = useStyles()
 
-  const { itemCount, cartItems, total } = useShoppingBag()
+  const { cartItems, total } = useShoppingBag()
   const cart = Object.values(cartItems)
 
   return (
@@ -22,9 +24,8 @@ const CartPage = () => {
             <Typography variant='h5' component='span'>
               My bag
             </Typography>
-            <Typography variant='body1' component='span'>
-              {itemCount && (itemCount > 1 ? `${itemCount} items` : `${itemCount} item`)}
-            </Typography>
+
+            <CartItemCountWithText />
           </div>
           <Divider />
         </div>
@@ -84,4 +85,6 @@ const useStyles = makeStyles((theme) => ({
   ctaContainer: {},
 }))
 
-export default CartPage
+export default dynamic(() => Promise.resolve(CartPage), {
+  ssr: false,
+})

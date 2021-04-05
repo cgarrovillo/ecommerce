@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { IconButton, makeStyles, useMediaQuery, Badge, Drawer } from '@material-ui/core'
-import { BsBag, BsBagFill } from 'react-icons/bs'
+import { IconButton, makeStyles, Drawer } from '@material-ui/core'
+
+import CartIconWithBadge from '../atoms/cartWithBadge.button'
 
 import { useShoppingBag } from '../../utils/usb/BagContext'
 import CartDrawerContent from '../templates/cart-drawer-content'
@@ -13,17 +14,13 @@ type ToggleEvent = React.KeyboardEvent | React.MouseEvent
  * @returns
  */
 const CartDrawer: React.FC = () => {
-  const { cartItems, itemCount, total } = useShoppingBag()
+  const { cartItems, total } = useShoppingBag()
   const styles = useStyles()
-
-  // const isMobile = false
-  const isMobile = useMediaQuery('(max-width:600px)')
-  const iconSize = isMobile ? '0.85em' : '0.9em'
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const toggleDrawer = (event: ToggleEvent) => {
-    // If called wwhen event was a keyboard event, just return fast
+    // If called when event was a keyboard event, just return fast
     if (
       event &&
       event.type === 'keydown' &&
@@ -38,9 +35,7 @@ const CartDrawer: React.FC = () => {
   return (
     <>
       <IconButton className={styles.button} aria-label='add to bag' onClick={toggleDrawer}>
-        <Badge color='primary' badgeContent={itemCount}>
-          {isDrawerOpen ? <BsBagFill size={iconSize} /> : <BsBag size={iconSize} />}
-        </Badge>
+        <CartIconWithBadge open={isDrawerOpen} />
       </IconButton>
       <Drawer
         classes={{
