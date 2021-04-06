@@ -1,1 +1,0 @@
-# thoughtofyou - NextJS Frontend
