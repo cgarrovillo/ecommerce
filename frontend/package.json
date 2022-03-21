@@ -13,7 +13,7 @@
     "deploy:preview": "doppler run --command=\"cd .. && vercel\" "
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "^1.2.0",
+    "@auth0/nextjs-auth0": "^1.6.2",
     "@material-ui/core": "^4.11.3",
     "@next/bundle-analyzer": "^10.0.9",
     "@stripe/stripe-js": "^1.13.1",
